@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bruughkpvj56x"]
+
+[ext_resource type="Texture2D" uid="uid://2xbrbhp30idn" path="res://Untitled.png" id="1_ts2pu"]
+[ext_resource type="Script" path="res://TEST.cs" id="2_3glka"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("testText")]
+position = Vector2(399, 791)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ts2pu")
+centered = false
+script = ExtResource("2_3glka")
+testText = NodePath("../RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 1090.0
+offset_bottom = 1909.0
+theme_override_font_sizes/normal_font_size = 100
+text = "HELLO"
