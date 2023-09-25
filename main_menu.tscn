@@ -1,16 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://nndpr8y53hpu"]
+[gd_scene load_steps=4 format=3 uid="uid://nndpr8y53hpu"]
 
 [ext_resource type="Script" path="res://main_menu.cs" id="1_xxtm6"]
-[ext_resource type="PackedScene" uid="uid://bruughkpvj56x" path="res://scene.tscn" id="2_ylruq"]
+[ext_resource type="PackedScene" uid="uid://bruughkpvj56x" path="res://gameplay.tscn" id="2_g8wqd"]
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Red Pixel.png" id="3_bpxwv"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_xxtm6")
-mainGameScene = ExtResource("2_ylruq")
+mainGameScene = ExtResource("2_g8wqd")
 
 [node name="Button" type="Button" parent="."]
+visible = false
 offset_left = 179.0
 offset_top = 258.0
 offset_right = 861.0
 offset_bottom = 926.0
 theme_override_font_sizes/font_size = 100
 text = "START XD"
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(218, 287)
+scale = Vector2(600, 600)
+texture_normal = ExtResource("3_bpxwv")

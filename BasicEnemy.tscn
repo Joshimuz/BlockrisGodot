@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4ivh0okbxatj"]
+
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Red Pixel.png" id="1_cq7yo"]
+[ext_resource type="Script" path="res://Enemy.cs" id="2_a318v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25g3l"]
+size = Vector2(1, 1)
+
+[node name="BasicEnemy" type="Sprite2D"]
+scale = Vector2(128, 128)
+texture = ExtResource("1_cq7yo")
+script = ExtResource("2_a318v")
+MovementSpeed = 400.0
+Points = 100
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_25g3l")

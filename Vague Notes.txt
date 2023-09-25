@@ -1,0 +1,27 @@
+Size Based Difficulty Scaling
+	Start player large, and decrease size of player
+	and objects to increase difficulity/play area
+	overtime for a difficulty scaling
+
+
+Inital Player Size
+	From rough "feel" testing, 128x128 seems like a
+	decent size on PC and Mobile
+
+
+
+
+
+
+
+
+
+
+
+
+Collision
+	Players and enimies have area2D
+	Player checks for overlaps (so only 1 check
+	and enimes can overlap over enimies)
+	Player informs enemy that they overlap
+	Enemy has logic for handling touching player
