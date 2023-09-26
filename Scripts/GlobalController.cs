@@ -94,3 +94,5 @@ public partial class GlobalController : Node
         GD.Print(GetTree().Paused.ToString());
     }
 }
+
+//TODO: Add Highscores File Saving Stuff

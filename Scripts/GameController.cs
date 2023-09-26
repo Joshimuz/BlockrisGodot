@@ -37,10 +37,12 @@ public partial class GameController : Node2D
         player = packedPlayer.Instantiate<Player>();
         AddChild(player);
         player.Position = new Vector2(540, 1600);
+
+        GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnPauseButton;
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
         if (CurrentLives <= 0)
         {
@@ -88,6 +90,11 @@ public partial class GameController : Node2D
 
             player.Move(direction, delta);
         }
+    }
+
+    void OnPauseButton()
+    {
+        globalController.ChangePauseState();
     }
 
     public override void _Input(InputEvent @event)

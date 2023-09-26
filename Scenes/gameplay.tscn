@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bruughkpvj56x"]
+[gd_scene load_steps=5 format=3 uid="uid://bruughkpvj56x"]
 
 [ext_resource type="Script" path="res://Scripts/GameController.cs" id="1_7smx7"]
 [ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
 [ext_resource type="PackedScene" uid="uid://b4ivh0okbxatj" path="res://PackedNodes/BasicEnemy.tscn" id="3_i30u2"]
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
 
 [node name="GameController" type="Node2D" node_paths=PackedStringArray("testText")]
 process_mode = 1
@@ -17,3 +18,9 @@ offset_bottom = 1912.0
 theme_override_font_sizes/normal_font_size = 100
 text = "HELLO
 "
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+process_mode = 3
+position = Vector2(979, 1)
+scale = Vector2(100, 100)
+texture_normal = ExtResource("4_3furi")
