@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using static Godot.TextServer;
 using System.Linq;
+using static GlobalController;
 
 public partial class GameController : Node2D
 {
@@ -24,6 +25,7 @@ public partial class GameController : Node2D
     Dictionary<int, Vector2> touchDic = new Dictionary<int, Vector2>();
 
     public ulong CurrentScore = 0;
+    public sbyte CurrentLives = 5;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -36,17 +38,23 @@ public partial class GameController : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+        if (CurrentLives <= 0)
+        {
+            GetNode<GlobalController>("/root/GlobalController")
+                .ChangeGameState(GlobalController.GameState.GameplayEnd);
+        }
+
         HandlePlayerMovement((float)delta);
 
         i--;
 
-        testText.Text = CurrentScore.ToString();
+        testText.Text = CurrentScore.ToString() + "\n" + CurrentLives.ToString();
 
         if (i == 0)
         {
             basicEnemy = packedbasicEnemy.Instantiate<Enemy>();
             AddChild(basicEnemy);
-            basicEnemy.Position = new Vector2(rng.Next(0+64, 1080-64), 0);
+            basicEnemy.Position = new Vector2(rng.Next(0 + 64, 1080 - 64), 0);
             i = 100;
         }
     }
@@ -97,11 +105,17 @@ public partial class GameController : Node2D
         {
             touchDic[dragEvent.Index] = dragEvent.Position;
         }
+
+        if (@event is InputEventKey keyEvent
+            && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+        {
+            GetNode<GlobalController>("/root/GlobalController")
+                .ChangePauseState();
+        }
     }
 }
 
 
-//TODO: Implement lives
 //TODO: Implement alternate/slider control scheme
 //TODO: Implement some kind of difficulty scaling
 //TODO: Fix out render order and put text above enemies

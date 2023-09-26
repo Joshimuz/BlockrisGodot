@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Blockris Godot"
-run/main_scene="res://main_menu.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalController="*res://Scripts/GlobalController.cs"
 
 [display]
 

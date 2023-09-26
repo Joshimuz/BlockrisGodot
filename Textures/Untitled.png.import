@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpgap0ud2ur2r"
-path="res://.godot/imported/Red Pixel.png-88e1a3a06fe1c5fc40b2ee6c4e417bd5.ctex"
+uid="uid://2xbrbhp30idn"
+path="res://.godot/imported/Untitled.png-a8d098f32bff6b6b26fc00deea6aa0e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Red Pixel.png"
-dest_files=["res://.godot/imported/Red Pixel.png-88e1a3a06fe1c5fc40b2ee6c4e417bd5.ctex"]
+source_file="res://Textures/Untitled.png"
+dest_files=["res://.godot/imported/Untitled.png-a8d098f32bff6b6b26fc00deea6aa0e6.ctex"]
 
 [params]
 

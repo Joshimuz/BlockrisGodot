@@ -46,7 +46,7 @@ public partial class Enemy : Sprite2D
 				break;
 
 			case enemyType.Spikey:
-                //TODO: Lose a life
+                GetParent<GameController>().CurrentLives--;
                 QueueFree();
                 break;
         }    
@@ -54,7 +54,16 @@ public partial class Enemy : Sprite2D
 
 	void ReachedBottom()
 	{
-        //TODO: Lose a life
-        QueueFree();
+        switch (EnemyType)
+        {
+            case enemyType.Basic:
+                GetParent<GameController>().CurrentLives--;
+                QueueFree();
+                break;
+
+            case enemyType.Spikey:
+                QueueFree();
+                break;
+        }
     }
 }

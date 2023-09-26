@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://k64o03vrus5a"]
+
+[ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_7npwq"]
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="2_sjr7f"]
+
+[node name="PauseMenu" type="Node2D"]
+process_mode = 2
+z_index = 1
+script = ExtResource("1_7npwq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 275.0
+offset_top = 139.0
+offset_right = 835.0
+offset_bottom = 383.0
+theme_override_font_sizes/normal_font_size = 100
+text = "PAUSED XD"
+
+[node name="UnpauseButton" type="TouchScreenButton" parent="."]
+position = Vector2(190, 843)
+scale = Vector2(200, 200)
+texture_normal = ExtResource("2_sjr7f")
+
+[node name="MainMenuButton" type="TouchScreenButton" parent="."]
+position = Vector2(626, 846)
+scale = Vector2(200, 200)
+texture_normal = ExtResource("2_sjr7f")

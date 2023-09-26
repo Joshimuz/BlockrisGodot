@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bruughkpvj56x"]
+
+[ext_resource type="Script" path="res://Scripts/GameController.cs" id="1_7smx7"]
+[ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
+[ext_resource type="PackedScene" uid="uid://b4ivh0okbxatj" path="res://PackedNodes/BasicEnemy.tscn" id="3_i30u2"]
+
+[node name="GameController" type="Node2D" node_paths=PackedStringArray("testText")]
+process_mode = 1
+script = ExtResource("1_7smx7")
+packedPlayer = ExtResource("2_yt8s7")
+packedbasicEnemy = ExtResource("3_i30u2")
+testText = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 1068.0
+offset_bottom = 1912.0
+theme_override_font_sizes/normal_font_size = 100
+text = "HELLO
+"
