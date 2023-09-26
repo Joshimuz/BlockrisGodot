@@ -3,9 +3,13 @@ using System;
 
 public partial class PauseMenu : Node2D
 {
+    GlobalController globalController;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        globalController = GetNode<GlobalController>("/root/GlobalController");
+
         GetNode<TouchScreenButton>("UnpauseButton").Pressed += OnUnpauseButton;
         GetNode<TouchScreenButton>("MainMenuButton").Pressed += OnMainMenuButton;
     }
@@ -17,14 +21,12 @@ public partial class PauseMenu : Node2D
 
     public void OnUnpauseButton()
     {
-        GetNode<GlobalController>("/root/GlobalController")
-                .ChangePauseState();
+        globalController.ChangePauseState();
     }
 
     public void OnMainMenuButton()
     {
-        GetNode<GlobalController>("/root/GlobalController")
-            .ChangeGameState(GlobalController.GameState.MainMenu);
+        globalController.ChangeGameState(GlobalController.GameState.MainMenu);
     }
 
     public override void _Input(InputEvent @event)
@@ -32,8 +34,7 @@ public partial class PauseMenu : Node2D
         if (@event is InputEventKey keyEvent
             && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
         {
-            GetNode<GlobalController>("/root/GlobalController")
-                .ChangePauseState();
+            globalController.ChangePauseState();
         }
     }
 }

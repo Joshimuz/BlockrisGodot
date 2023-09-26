@@ -7,6 +7,8 @@ using static GlobalController;
 
 public partial class GameController : Node2D
 {
+    GlobalController globalController;
+
     [Export] PackedScene packedPlayer;
     [Export] PackedScene packedbasicEnemy;
 
@@ -30,6 +32,8 @@ public partial class GameController : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        globalController = GetNode<GlobalController>("/root/GlobalController");
+
         player = packedPlayer.Instantiate<Player>();
         AddChild(player);
         player.Position = new Vector2(540, 1600);
@@ -40,8 +44,7 @@ public partial class GameController : Node2D
 	{
         if (CurrentLives <= 0)
         {
-            GetNode<GlobalController>("/root/GlobalController")
-                .ChangeGameState(GlobalController.GameState.GameplayEnd);
+            globalController.ChangeGameState(GlobalController.GameState.GameplayEnd);
         }
 
         HandlePlayerMovement((float)delta);
@@ -109,8 +112,7 @@ public partial class GameController : Node2D
         if (@event is InputEventKey keyEvent
             && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
         {
-            GetNode<GlobalController>("/root/GlobalController")
-                .ChangePauseState();
+            globalController.ChangePauseState();
         }
     }
 }

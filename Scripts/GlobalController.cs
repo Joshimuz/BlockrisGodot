@@ -77,8 +77,7 @@ public partial class GlobalController : Node
                 pauseMenu = GD.Load<PackedScene>("res://PackedNodes/PauseMenu.tscn")
                     .Instantiate<PauseMenu>();
 
-                GetNode("/root/GameController").
-                AddChild(pauseMenu);
+                GetNode("/root/GameController").AddChild(pauseMenu);
                 GetTree().Paused = true;
             }
             else

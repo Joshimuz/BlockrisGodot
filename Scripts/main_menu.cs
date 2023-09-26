@@ -3,10 +3,14 @@ using System;
 
 public partial class main_menu : Node2D
 {
+    GlobalController globalController;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnButoootan;
+        globalController = GetNode<GlobalController>("/root/GlobalController");
+
+        GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnButoootan;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,8 +20,7 @@ public partial class main_menu : Node2D
 
 	public void OnButoootan()
 	{
-		GetNode<GlobalController>("/root/GlobalController")
-			.ChangeGameState(GlobalController.GameState.Gameplay);
+        globalController.ChangeGameState(GlobalController.GameState.Gameplay);
     }
 }
 
