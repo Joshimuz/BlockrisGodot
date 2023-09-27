@@ -38,4 +38,3 @@ public partial class PauseMenu : Node2D
         }
     }
 }
-//TODO: Detect suspension (ALT-TAB/App Switch) and force pause the game

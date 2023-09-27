@@ -6,8 +6,6 @@ public partial class Spawner : Timer
     [Export] PackedScene packedBasicEnemy;
     [Export] PackedScene packedSpikeyEnemy;
 
-    Random rng = new Random();
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -23,7 +21,7 @@ public partial class Spawner : Timer
 	{
         Enemy newEnemy;
 
-        if (rng.NextSingle() > 0.5)
+        if (GameplayController.RNG.Randf() > 0.5)
         {
             newEnemy = packedBasicEnemy.Instantiate<Enemy>();
         }
@@ -31,8 +29,9 @@ public partial class Spawner : Timer
         {
             newEnemy = packedSpikeyEnemy.Instantiate<Enemy>();
         }
-        
+
         AddSibling(newEnemy);
-        newEnemy.Position = new Vector2(rng.Next(0 + 64, 1080 - 64), 0);
+        newEnemy.Position 
+            = new Vector2(GameplayController.RNG.RandfRange(0 + 64, 1080 - 64), 0);
     }
 }

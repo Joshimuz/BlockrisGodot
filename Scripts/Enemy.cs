@@ -31,3 +31,5 @@ public abstract partial class Enemy : Sprite2D
 
     protected abstract void ReachedBottom();
 }
+
+//TODO: Add shooting enemy that shoots a bullet you need to dodge, but you want to hit the enemy

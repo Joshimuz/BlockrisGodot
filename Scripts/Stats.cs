@@ -25,6 +25,18 @@ public static class Stats
         }
     }
 
+    public static ulong BlocksHit
+    {
+        get { return (ulong)config.GetValue("Stats", "BlocksHit", 0); }
+        set { config.SetValue("Stats", "BlocksHit", value); }
+    }
+
+    public static ulong BlocksMissed
+    {
+        get { return (ulong)config.GetValue("Stats", "BlocksMissed", 0); }
+        set { config.SetValue("Stats", "BlocksMissed", value); }
+    }
+
     public static ulong TimesGoneLeft
     { 
         get { return (ulong)config.GetValue("Stats", "TimesGoneLeft", 0); }
@@ -55,3 +67,6 @@ public static class Stats
         config.Save("user://stats.cfg");
     }
 }
+
+//TODO: Add Time Spent Playing stat
+//TODO: Add Times Boosted

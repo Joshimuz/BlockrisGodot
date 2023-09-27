@@ -9,6 +9,8 @@ public partial class GameplayController : Node2D
 {
     GlobalController globalController;
 
+    public static RandomNumberGenerator RNG = new RandomNumberGenerator();
+
     public enum GameplayState
     { 
         Intro, //TODO: Add Gameplay Intro stuff
@@ -52,8 +54,10 @@ public partial class GameplayController : Node2D
 
         GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnPauseButton;
 
-        GD.Print("Highest score: " + Stats.HighScore);
-        GD.Print("Latest score: " + Stats.LatestScore);
+        // Create a new RNG seed
+        RNG.Randomize();
+
+        //TODO: Record the RNG seed and store it somewhere for replays
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

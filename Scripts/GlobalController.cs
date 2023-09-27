@@ -83,16 +83,16 @@ public partial class GlobalController : Node
         ChangePauseState(!GetTree().Paused);
     }
 
-    public override void _Notification(int what)
+    public override void _Notification(int notification)
     {
-        if (what == NotificationWMCloseRequest
-            || what == NotificationWMGoBackRequest)
+        if (notification == NotificationWMCloseRequest
+            || notification == NotificationWMGoBackRequest)
         {
             Stats.CommitToDisk();
         }
 
-        if (what == NotificationApplicationFocusOut
-            || what == NotificationWMWindowFocusOut)
+        if (notification == NotificationApplicationFocusOut
+            || notification == NotificationWMWindowFocusOut)
         {
             ChangePauseState(true);
         }

@@ -33,7 +33,6 @@ Boost Bar Display
 	
 	
 	
-	
 Replays
 	Record the RNG Seed at the top of the replay file
 	(use UNIX Timestamp as RNG Seed and maybe something else?)
