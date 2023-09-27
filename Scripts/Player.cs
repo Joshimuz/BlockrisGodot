@@ -8,6 +8,8 @@ public partial class Player : Sprite2D
 	/// </summary>
 	[Export] public float MovementSpeed;
 
+	float CurrentBoostAmount; //TODO: Implement Boosting amount
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -27,11 +29,18 @@ public partial class Player : Sprite2D
 		}
 	}
 
-	public void Move(Vector2 direction, float delta)
+	public void Move(Vector2 direction, float delta, bool boosting)
 	{
 		Vector2 newPosition = Position;
 
-		newPosition += direction * (MovementSpeed * delta);
+		if (!boosting)
+		{
+            newPosition += direction * (MovementSpeed * delta);
+        }
+		else
+		{
+            newPosition += direction * (MovementSpeed * 2 * delta);
+        }
 
         newPosition.X = Math.Clamp(newPosition.X, 64, 1080 - 64);
     

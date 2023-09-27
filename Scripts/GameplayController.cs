@@ -5,12 +5,22 @@ using static Godot.TextServer;
 using System.Linq;
 using static GlobalController;
 
-public partial class GameController : Node2D
+public partial class GameplayController : Node2D
 {
     GlobalController globalController;
 
+    public enum GameplayState
+    { 
+        Intro, //TODO: Add Gameplay Intro stuff
+        Running,
+        End //TODO: Add Gameplay Outro/End/Deathscreen/Highscore stuff
+    }
+
+    [Export] GameplayState currentGameplayState = GameplayState.Intro;
+
+    [Export] PackedScene packedSpawner;
+
     [Export] PackedScene packedPlayer;
-    [Export] PackedScene packedbasicEnemy;
 
     [Export] RichTextLabel testText;
 
@@ -18,7 +28,7 @@ public partial class GameController : Node2D
     Vector2 direction;
 
     Player player;
-    Enemy basicEnemy;
+    Spawner spawner;
 
     int i = 100;
 
@@ -34,6 +44,11 @@ public partial class GameController : Node2D
 	{
         globalController = GetNode<GlobalController>("/root/GlobalController");
 
+        currentGameplayState = GameplayState.Running;
+
+        spawner = packedSpawner.Instantiate<Spawner>();
+        AddChild(spawner);
+
         player = packedPlayer.Instantiate<Player>();
         AddChild(player);
         player.Position = new Vector2(540, 1600);
@@ -46,22 +61,13 @@ public partial class GameController : Node2D
 	{
         if (CurrentLives <= 0)
         {
-            globalController.ChangeGameState(GlobalController.GameState.GameplayEnd);
+            currentGameplayState = GameplayState.End;
+            globalController.ChangeGameState(GlobalController.GameState.MainMenu);
         }
 
         HandlePlayerMovement((float)delta);
 
-        i--;
-
         testText.Text = CurrentScore.ToString() + "\n" + CurrentLives.ToString();
-
-        if (i == 0)
-        {
-            basicEnemy = packedbasicEnemy.Instantiate<Enemy>();
-            AddChild(basicEnemy);
-            basicEnemy.Position = new Vector2(rng.Next(0 + 64, 1080 - 64), 0);
-            i = 100;
-        }
     }
 
     void HandlePlayerMovement(float delta)
@@ -88,7 +94,14 @@ public partial class GameController : Node2D
                 direction = Vector2.Right;
             }
 
-            player.Move(direction, delta);
+            bool boosting = false;
+
+            if (TouchPosition.X < 200 || TouchPosition.X > 1080-200)
+            {
+                boosting = true;
+            }
+
+            player.Move(direction, delta, boosting);
         }
     }
 

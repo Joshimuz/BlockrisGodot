@@ -2,27 +2,18 @@ using Godot;
 using System;
 using static Godot.TextServer;
 
-public partial class Enemy : Sprite2D
+public abstract partial class Enemy : Sprite2D
 {
-	enum enemyType
-	{
-		Basic,
-		Spikey
-	}
-
-	[Export] enemyType EnemyType;
-
     /// <summary>
     /// Movement Speed in Pixels Per Second
     /// </summary>
-    [Export] public float MovementSpeed;
+    [Export] protected float MovementSpeed;
 
-	[Export] public ushort Points;
+	[Export] protected ushort Points;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,34 +27,7 @@ public partial class Enemy : Sprite2D
         }
     }
 
-	public void OnPlayerHit()
-	{
-		switch (EnemyType)
-		{
-			case enemyType.Basic:
-				GetParent<GameController>().CurrentScore += Points;
-				QueueFree();
-				break;
+    public abstract void OnPlayerHit();
 
-			case enemyType.Spikey:
-                GetParent<GameController>().CurrentLives--;
-                QueueFree();
-                break;
-        }    
-	}
-
-	void ReachedBottom()
-	{
-        switch (EnemyType)
-        {
-            case enemyType.Basic:
-                GetParent<GameController>().CurrentLives--;
-                QueueFree();
-                break;
-
-            case enemyType.Spikey:
-                QueueFree();
-                break;
-        }
-    }
+    protected abstract void ReachedBottom();
 }

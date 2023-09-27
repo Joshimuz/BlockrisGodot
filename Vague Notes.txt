@@ -1,23 +1,45 @@
-Size Based Difficulty Scaling
-	Start player large, and decrease size of player
-	and objects to increase difficulity/play area
-	overtime for a difficulty scaling
+Difficulty System
+	More difficulity = more points (so good players don't 
+	game the system into being easier, instead they want
+	it to be harder)
+		Have Difficulty be a number of some kind that
+		increases/decreases and * the score additions
+	Difficulity should be based on how well they're playing
+		Lining up for cubes early+
+		Missing Cubes-
+		Concentive objects caught+ (streak counter)
+		Length of game+ (how long they're allive for)
+	Size Based Difficulty Scaling
+		Start player large, and decrease size of player
+		and objects to increase difficulity/play area
+		overtime for a difficulty scaling
+	Speed of objects tied to difficluty
+	Rate of spawning objectes tied to difficulty
+	Types of objects spawned tied to difficulty 
 
 
 Inital Player Size
 	From rough "feel" testing, 128x128 seems like a
 	decent size on PC and Mobile
-
-
-
-
-
-
-
-
-
-
-
+	
+Boost Bar Display
+	Have a centered bar that gets smaller at both
+	ends, to shrink towards the centre
+	so eaiser to see when thumbs covering screen
+	
+	
+	
+	
+	
+	
+	
+	
+Replays
+	Record the RNG Seed at the top of the replay file
+	(use UNIX Timestamp as RNG Seed and maybe something else?)
+	Record inputs, keep all RNG/Physics deterministic
+	For leaderboards, verify replays with a game simulator
+	Also record current game version in the replay
 
 Collision
 	Players and enimies have area2D

@@ -7,12 +7,10 @@ public partial class GlobalController : Node
     {
         Intro,
         MainMenu,
-        GameplayStart,
-        Gameplay,
-        GameplayEnd
+        Gameplay
     }
 
-    GameState currentGameState = GameState.MainMenu;
+    [Export] GameState currentGameState = GameState.MainMenu;
 
     PauseMenu pauseMenu;
 
@@ -34,6 +32,8 @@ public partial class GlobalController : Node
     {
         if (requestedGameState == currentGameState) return;
 
+        //TODO: statscontroller.commitToDisk()
+
         switch (requestedGameState)
         {
             case GameState.Intro:
@@ -45,18 +45,9 @@ public partial class GlobalController : Node
                 GetTree().Paused = false;
                 break;
 
-            case GameState.GameplayStart:
-                //TODO: Add Gameplay Intro/Start
-                break;
-
             case GameState.Gameplay:
                 GetTree().ChangeSceneToFile("res://Scenes/gameplay.tscn");
                 GetTree().Paused = false;
-                break;
-
-            case GameState.GameplayEnd:
-                //TODO: Add Gameplay Outro/End/PlayerDeath/Highscore screen
-                ChangeGameState(GameState.MainMenu);
                 break;
         }
 
@@ -90,8 +81,6 @@ public partial class GlobalController : Node
         {
             GetTree().Paused = !GetTree().Paused;
         }
-
-        GD.Print(GetTree().Paused.ToString());
     }
 }
 

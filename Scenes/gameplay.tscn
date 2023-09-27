@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://bruughkpvj56x"]
 
-[ext_resource type="Script" path="res://Scripts/GameController.cs" id="1_7smx7"]
+[ext_resource type="Script" path="res://Scripts/GameplayController.cs" id="1_nt1ga"]
+[ext_resource type="PackedScene" uid="uid://ctkjynq0wcvl5" path="res://PackedNodes/spawner.tscn" id="2_ewlri"]
 [ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
-[ext_resource type="PackedScene" uid="uid://b4ivh0okbxatj" path="res://PackedNodes/BasicEnemy.tscn" id="3_i30u2"]
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
 
 [node name="GameController" type="Node2D" node_paths=PackedStringArray("testText")]
 process_mode = 1
-script = ExtResource("1_7smx7")
+script = ExtResource("1_nt1ga")
+packedSpawner = ExtResource("2_ewlri")
 packedPlayer = ExtResource("2_yt8s7")
-packedbasicEnemy = ExtResource("3_i30u2")
 testText = NodePath("RichTextLabel")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]

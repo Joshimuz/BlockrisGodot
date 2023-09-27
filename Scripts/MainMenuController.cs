@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class main_menu : Node2D
+public partial class MainMenuController : Node2D
 {
     GlobalController globalController;
 

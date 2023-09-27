@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://nndpr8y53hpu"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.cs" id="1_m2637"]
+[ext_resource type="Script" path="res://Scripts/MainMenuController.cs" id="1_tquo0"]
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="2_mx512"]
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource("1_m2637")
+script = ExtResource("1_tquo0")
 
 [node name="Button" type="Button" parent="."]
 visible = false
