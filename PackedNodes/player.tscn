@@ -11,6 +11,7 @@ scale = Vector2(128, 128)
 texture = ExtResource("1_4gwbo")
 script = ExtResource("2_30n0v")
 MovementSpeed = 800.0
+boostMultiplyer = 2.0
 
 [node name="Area2D" type="Area2D" parent="."]
 

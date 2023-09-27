@@ -32,7 +32,7 @@ public partial class GlobalController : Node
     {
         if (requestedGameState == currentGameState) return;
 
-        //TODO: statscontroller.commitToDisk()
+        Stats.CommitToDisk();
 
         switch (requestedGameState)
         {
@@ -54,34 +54,47 @@ public partial class GlobalController : Node
         currentGameState = requestedGameState;
     }
 
-    public void ChangePauseState()
+    public void ChangePauseState(bool pause)
     {
-        if (previousPaused != GetTree().Paused)
+        if (previousPaused != GetTree().Paused 
+            || currentGameState != GameState.Gameplay)
         {
             return;
         }
 
-        if (currentGameState == GameState.Gameplay)
+        if (pause && !GetTree().Paused)
         {
-            if (!GetTree().Paused)
-            {
-                pauseMenu = GD.Load<PackedScene>("res://PackedNodes/PauseMenu.tscn")
-                    .Instantiate<PauseMenu>();
+            pauseMenu = GD.Load<PackedScene>("res://PackedNodes/PauseMenu.tscn")
+                .Instantiate<PauseMenu>();
 
-                GetNode("/root/GameController").AddChild(pauseMenu);
-                GetTree().Paused = true;
-            }
-            else
-            {
-                pauseMenu.QueueFree();
-                GetTree().Paused = false;
-            }
+            GetNode("/root/GameController").AddChild(pauseMenu);
+
+            GetTree().Paused = true;
         }
-        else
+        else if (!pause && GetTree().Paused)
         {
-            GetTree().Paused = !GetTree().Paused;
+            pauseMenu.QueueFree();
+
+            GetTree().Paused = false;
+        }
+    }
+    public void ChangePauseState()
+    {
+        ChangePauseState(!GetTree().Paused);
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == NotificationWMCloseRequest
+            || what == NotificationWMGoBackRequest)
+        {
+            Stats.CommitToDisk();
+        }
+
+        if (what == NotificationApplicationFocusOut
+            || what == NotificationWMWindowFocusOut)
+        {
+            ChangePauseState(true);
         }
     }
 }
-
-//TODO: Add Highscores File Saving Stuff

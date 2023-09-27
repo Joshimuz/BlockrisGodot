@@ -25,14 +25,11 @@ public partial class GameplayController : Node2D
     [Export] RichTextLabel testText;
 
     Vector2 TouchPosition;
-    Vector2 direction;
 
     Player player;
     Spawner spawner;
 
     int i = 100;
-
-    Random rng = new Random();
 
     Dictionary<int, Vector2> touchDic = new Dictionary<int, Vector2>();
 
@@ -54,6 +51,9 @@ public partial class GameplayController : Node2D
         player.Position = new Vector2(540, 1600);
 
         GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnPauseButton;
+
+        GD.Print("Highest score: " + Stats.HighScore);
+        GD.Print("Latest score: " + Stats.LatestScore);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,15 +62,19 @@ public partial class GameplayController : Node2D
         if (CurrentLives <= 0)
         {
             currentGameplayState = GameplayState.End;
+            
+            // Report the latest score to stats
+            Stats.LatestScore = CurrentScore;
+
             globalController.ChangeGameState(GlobalController.GameState.MainMenu);
         }
 
-        HandlePlayerMovement((float)delta);
+        HandlePlayerInput();
 
         testText.Text = CurrentScore.ToString() + "\n" + CurrentLives.ToString();
     }
 
-    void HandlePlayerMovement(float delta)
+    void HandlePlayerInput()
     {
         if (touchDic.Count > 0)
         {
@@ -83,25 +87,19 @@ public partial class GameplayController : Node2D
 
             TouchPosition /= touchDic.Count;
 
-            Vector2 direction;
-
             if (TouchPosition.X < 540)
             {
-                direction = Vector2.Left;
+                player.CurrentDirection = Vector2.Left;
             }
             else
             {
-                direction = Vector2.Right;
+                player.CurrentDirection = Vector2.Right;
             }
-
-            bool boosting = false;
 
             if (TouchPosition.X < 200 || TouchPosition.X > 1080-200)
             {
-                boosting = true;
+                player.WantsToBoost = true;
             }
-
-            player.Move(direction, delta, boosting);
         }
     }
 
