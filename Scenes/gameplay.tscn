@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bruughkpvj56x"]
+[gd_scene load_steps=6 format=3 uid="uid://bruughkpvj56x"]
 
 [ext_resource type="Script" path="res://Scripts/GameplayController.cs" id="1_nt1ga"]
 [ext_resource type="PackedScene" uid="uid://ctkjynq0wcvl5" path="res://PackedNodes/spawner.tscn" id="2_ewlri"]
 [ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
+[ext_resource type="Texture2D" uid="uid://3w8geqvte4g3" path="res://Textures/bad space.png" id="5_t6r6o"]
 
 [node name="GameController" type="Node2D"]
 process_mode = 1
@@ -23,3 +24,8 @@ process_mode = 3
 position = Vector2(979, 1)
 scale = Vector2(100, 100)
 texture_normal = ExtResource("4_3furi")
+
+[node name="BadSpace" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(540, 960)
+texture = ExtResource("5_t6r6o")

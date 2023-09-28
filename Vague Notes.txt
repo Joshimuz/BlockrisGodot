@@ -35,6 +35,7 @@ Possible Enemy Types
 	Boost giving Enemy/Powerup/Life giving enemy (opional to hit)
 	"Wire" Enemy (creates a wire between it and another that kills you if hit, opional to hit block?)
 	"Mirror" Enemy (copies your movement, but if hit's another enemy gets killed)
+	Planet and Moon Enemy (spikey enemy in center with a normal enemy rotating around it)
 	
 Replays
 	Record the RNG Seed at the top of the replay file
