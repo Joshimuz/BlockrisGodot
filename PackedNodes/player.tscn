@@ -7,11 +7,9 @@
 size = Vector2(1, 1)
 
 [node name="Player" type="Sprite2D"]
-scale = Vector2(128, 128)
+scale = Vector2(64, 64)
 texture = ExtResource("1_4gwbo")
 script = ExtResource("2_30n0v")
-MovementSpeed = 800.0
-boostMultiplyer = 2.0
 
 [node name="Area2D" type="Area2D" parent="."]
 

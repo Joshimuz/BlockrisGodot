@@ -14,7 +14,7 @@ packedPlayer = ExtResource("2_yt8s7")
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_right = 1068.0
 offset_bottom = 1912.0
-theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/normal_font_size = 50
 text = "HELLO
 "
 

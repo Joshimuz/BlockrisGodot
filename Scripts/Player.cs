@@ -5,18 +5,22 @@ using static Godot.TextServer;
 public partial class Player : Sprite2D
 {
 	/// <summary>
-	/// Movement Speed in Pixels Per Second
+	/// Movement Speed in pixels per second, scaled by the size of the player * MovementSpeedScale
 	/// </summary>
-	[Export] public float MovementSpeed;
+	float MovementSpeed;
+	/// <summary>
+	/// The amount to times the scale of the player by, for MovementSpeed, use this to change movement speed
+	/// </summary>
+	float MovementSpeedScale = 6.25f;
 
-    [Export] float boostMultiplyer;
+    float boostMultiplyer = 2;
 
 	float currentBoostAmount;
 	float MaximumBoost = 1f;
 	/// <summary>
 	/// The amount to multiple delta by every frame for boos regeneration
 	/// </summary>
-	const float BoostRegenRate = 0.1f;
+	const float BoostRegenRate = 0.25f;
 	
 	public Vector2 CurrentDirection;
 
@@ -24,18 +28,36 @@ public partial class Player : Sprite2D
 
 	public bool WantsToBoost;
 
+	float defaultScale = 128f;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		GetChild<Area2D>(0).AreaEntered += EnteredCollision;
 
 		currentBoostAmount = MaximumBoost;
+
+		Scale = new Vector2(defaultScale, defaultScale);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        Vector2 newPosition = Position;
+		float newScale = defaultScale / GameplayController.Difficulty;
+		Scale = new Vector2(newScale, newScale);
+
+		MovementSpeed = MovementSpeedScale * (Transform.Scale.X * 1.1f);
+
+		Position = new Vector2(Position.X, 1660 - (Transform.Scale.Y / 2));
+
+        HandleMovement(delta);
+
+        GameplayController.testText.Text += "\nBoost: " + currentBoostAmount;
+    }
+
+	void HandleMovement(double delta)
+	{
+		Vector2 newPosition = Position;
 
         if (CurrentDirection != previousDirection)
         {
@@ -57,6 +79,8 @@ public partial class Player : Sprite2D
 
 			// Use boost to a minimum of 0
             currentBoostAmount = MathF.Max(currentBoostAmount -= (float)delta, 0);
+
+			Stats.SecondsBoosted += delta;
         }
 		else
 		{
@@ -67,16 +91,15 @@ public partial class Player : Sprite2D
 				+= (float)delta * BoostRegenRate, MaximumBoost);
         }
 
-        newPosition.X = Math.Clamp(newPosition.X, 64, 1080 - 64);
+        newPosition.X = Math.Clamp(newPosition.X, Transform.Scale.X / 2, 
+			1080 - Transform.Scale.X / 2);
 
         Position = newPosition;
 
         previousDirection = CurrentDirection;
 		CurrentDirection = Vector2.Zero;
 		WantsToBoost = false;
-
-		GameplayController.testText.Text += "\nBoost: " + currentBoostAmount;
-    }
+	}
 
 	public void EnteredCollision(Area2D otherCollision)
 	{
@@ -86,3 +109,4 @@ public partial class Player : Sprite2D
 		}
 	}
 }
+//TODO: Figure out how to handle sprite sizes for scaling instead of Transform scale alone

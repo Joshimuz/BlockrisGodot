@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using static Godot.TextServer;
-using System.Linq;
 using static GlobalController;
 
 public partial class GameplayController : Node2D
@@ -11,14 +10,14 @@ public partial class GameplayController : Node2D
 
     public static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
-    public enum GameplayState
+    enum GameplayState
     { 
         Intro, //TODO: Add Gameplay Intro stuff
         Running,
         End //TODO: Add Gameplay Outro/End/Deathscreen/Highscore stuff
     }
 
-    [Export] GameplayState currentGameplayState = GameplayState.Intro;
+    GameplayState currentGameplayState = GameplayState.Intro;
 
     [Export] PackedScene packedSpawner;
 
@@ -35,13 +34,20 @@ public partial class GameplayController : Node2D
 
     Dictionary<int, Vector2> touchDic = new Dictionary<int, Vector2>();
 
-    public ulong CurrentScore = 0;
-    public sbyte CurrentLives = 5;
+    static ulong Score = 0;
+    public static sbyte Lives = 5;
+    public static float Difficulty = 1;
+    static uint EnemiesSinceLastIncident = 0;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
         globalController = GetNode<GlobalController>("/root/GlobalController");
+
+        Score = 0;
+        Lives = 5;
+        Difficulty = 1.2f;
+        EnemiesSinceLastIncident = 0;
 
         currentGameplayState = GameplayState.Running;
 
@@ -65,19 +71,22 @@ public partial class GameplayController : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
-        if (CurrentLives <= 0)
+        if (Lives <= 0)
         {
             currentGameplayState = GameplayState.End;
-            
-            // Report the latest score to stats
-            Stats.LatestScore = CurrentScore;
 
             globalController.ChangeGameState(GlobalController.GameState.MainMenu);
         }
 
         HandlePlayerInput();
 
-        testText.Text = CurrentScore.ToString() + "\n" + CurrentLives.ToString();
+        Difficulty += (float)delta * 0.001f;
+
+        testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
+            + "\nDiff: " + Difficulty;
+
+        Stats.LatestScore = Score;
+        Stats.LatestDifficulty = Difficulty;
     }
 
     void HandlePlayerInput()
@@ -107,6 +116,34 @@ public partial class GameplayController : Node2D
                 player.WantsToBoost = true;
             }
         }
+    }
+
+    public static void PlayerScored(uint points)
+    {
+        ulong pointsToAdd = (ulong)(points * Difficulty);
+
+        Score += pointsToAdd;
+
+        //Difficulty += pointsToAdd / 50000f;
+
+        EnemiesSinceLastIncident++;
+
+        Difficulty += (float)(1 - Math.Exp(-0.05 * Mathf.Min(EnemiesSinceLastIncident, 15))) * 0.005f;
+    }
+
+    public static void PlayerFouled(uint points)
+    {
+        Lives--;
+        Stats.PointsMissed += (ulong)(points * Difficulty);
+
+        if (Lives <= 0)
+        {
+            return;
+        }
+
+        Difficulty = Math.Max(Difficulty * 0.9f, 1);
+
+        EnemiesSinceLastIncident = 0;
     }
 
     void OnPauseButton()

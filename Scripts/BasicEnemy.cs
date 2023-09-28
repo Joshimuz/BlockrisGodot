@@ -3,19 +3,13 @@ using System;
 
 public partial class BasicEnemy : Enemy
 {
-    public override void OnPlayerHit()
+    protected override ushort Points => 100;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
     {
-        GetParent<GameplayController>().CurrentScore += Points;
+        base._Ready();
 
-        Stats.BlocksHit++;
-        QueueFree();
-    }
-
-    protected override void ReachedBottom()
-    {
-        GetParent<GameplayController>().CurrentLives--;
-
-        Stats.BlocksMissed++;
-        QueueFree();
+        Stats.BasicEnemiesSeen++;
     }
 }

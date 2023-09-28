@@ -5,7 +5,6 @@ Difficulty System
 		Have Difficulty be a number of some kind that
 		increases/decreases and * the score additions
 	Difficulity should be based on how well they're playing
-		Lining up for cubes early+
 		Missing Cubes-
 		Concentive objects caught+ (streak counter)
 		Length of game+ (how long they're allive for)
@@ -16,22 +15,26 @@ Difficulty System
 	Speed of objects tied to difficluty
 	Rate of spawning objectes tied to difficulty
 	Types of objects spawned tied to difficulty 
-
+	Boost speed increases with difficulty(???)
 
 Inital Player Size
 	From rough "feel" testing, 128x128 seems like a
 	decent size on PC and Mobile
 	
 Boost Bar Display
-	Have a centered bar that gets smaller at both
-	ends, to shrink towards the centre
-	so eaiser to see when thumbs covering screen
+	Have a centered bar that gets smaller at both ends,
+	to shrink towards the centre so eaiser to see when thumbs covering screen
 	
-	
-	
-	
-	
-	
+Possible Enemy Types
+	Basic Enemy (moves striahgt down, want to hit)
+	"Spikey" Enemy (moves straight down, DONT want to hit)
+	DVD Screensaver Enemy (bounces from left to right (same as Diagonal moving?))
+	Shooting Enemy (shoots when player under it, but want to hit it)
+	Transforming Enemy (becomes another random enemy)
+	Status Changing Enemy (want to hit, but does something like reverse controls?)
+	Boost giving Enemy/Powerup/Life giving enemy (opional to hit)
+	"Wire" Enemy (creates a wire between it and another that kills you if hit, opional to hit block?)
+	"Mirror" Enemy (copies your movement, but if hit's another enemy gets killed)
 	
 Replays
 	Record the RNG Seed at the top of the replay file

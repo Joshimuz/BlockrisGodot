@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctkjynq0wcvl5"]
+[gd_scene load_steps=6 format=3 uid="uid://ctkjynq0wcvl5"]
 
 [ext_resource type="PackedScene" uid="uid://b4ivh0okbxatj" path="res://PackedNodes/BasicEnemy.tscn" id="1_6nho4"]
 [ext_resource type="Script" path="res://Scripts/Spawner.cs" id="1_e8268"]
 [ext_resource type="PackedScene" uid="uid://bdoaiauwotnx" path="res://PackedNodes/SpikeyEnemy.tscn" id="3_85yu1"]
+[ext_resource type="PackedScene" uid="uid://c54khso6kip82" path="res://PackedNodes/DVDEnemy.tscn" id="4_gyfus"]
+[ext_resource type="PackedScene" uid="uid://d0jnmrxn8mxkb" path="res://PackedNodes/OneUpEnemy.tscn" id="5_dsyn7"]
 
 [node name="Spawner" type="Timer"]
 process_callback = 0
 autostart = true
 script = ExtResource("1_e8268")
-packedBasicEnemy = ExtResource("1_6nho4")
-packedSpikeyEnemy = ExtResource("3_85yu1")
+basicEnemy = ExtResource("1_6nho4")
+spikeyEnemy = ExtResource("3_85yu1")
+DVDEnemy = ExtResource("4_gyfus")
+OneUpEnemy = ExtResource("5_dsyn7")

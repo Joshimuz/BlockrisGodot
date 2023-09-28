@@ -10,7 +10,7 @@ public partial class GlobalController : Node
         Gameplay
     }
 
-    [Export] GameState currentGameState = GameState.MainMenu;
+    GameState currentGameState = GameState.MainMenu;
 
     PauseMenu pauseMenu;
 
@@ -26,6 +26,8 @@ public partial class GlobalController : Node
     public override void _Process(double delta)
     {
         previousPaused = GetTree().Paused;
+
+        Stats.SecondsPlayed += delta;
     }
 
     public void ChangeGameState(GameState requestedGameState)

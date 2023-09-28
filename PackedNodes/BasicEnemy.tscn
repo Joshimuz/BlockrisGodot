@@ -10,8 +10,6 @@ size = Vector2(1, 1)
 scale = Vector2(128, 128)
 texture = ExtResource("1_wmea4")
 script = ExtResource("2_6sy6c")
-MovementSpeed = 400.0
-Points = 100
 
 [node name="Area2D" type="Area2D" parent="."]
 

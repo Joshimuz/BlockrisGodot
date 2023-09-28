@@ -25,6 +25,32 @@ public static class Stats
         }
     }
 
+    public static ulong PointsMissed
+    {
+        get { return (ulong)config.GetValue("Stats", "PointsMissed", 0); }
+        set { config.SetValue("Stats", "PointsMissed", value); }
+    }
+
+    /// <summary>
+    /// The Highest Difficulty the player has achived
+    /// To set, use Stats.LatestDifficulty
+    /// </summary>
+    public static float HighestDifficulty
+    {
+        get { return (float)config.GetValue("Stats", "HighestDifficulty", 0); }
+        private set { config.SetValue("Stats", "HighestDifficulty", value); }
+    }
+
+    public static float LatestDifficulty
+    {
+        get { return (float)config.GetValue("Stats", "LatestDifficulty", 0); }
+        set
+        {
+            if (value > HighestDifficulty) { HighestDifficulty = value; }
+            config.SetValue("Stats", "LatestDifficulty", value);
+        }
+    }
+
     public static ulong BlocksHit
     {
         get { return (ulong)config.GetValue("Stats", "BlocksHit", 0); }
@@ -49,6 +75,44 @@ public static class Stats
         set { config.SetValue("Stats", "TimesGoneRight", value); }
     }
 
+    public static double SecondsBoosted
+    {
+        get { return (double)config.GetValue("Stats", "SecondsBoosted", 0); }
+        set { config.SetValue("Stats", "SecondsBoosted", value); }
+    }
+
+    public static double SecondsPlayed
+    {
+        get { return (double)config.GetValue("Stats", "SecondsPlayed", 0); }
+        set { config.SetValue("Stats", "SecondsPlayed", value); }
+    }
+
+    #region EnemiesSeen
+    public static ulong BasicEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "BasicEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "BasicEnemiesSeen", value); }
+    }
+
+    public static ulong SpikeyEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "SpikeyEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "SpikeyEnemiesSeen", value); }
+    }
+
+    public static ulong DVDEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "DVDEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "DVDEnemiesSeen", value); }
+    }
+
+    public static ulong OneUpEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "OneUpEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "OneUpEnemiesSeen", value); }
+    }
+    #endregion
+
     // The first time Stats gets used, this gets called
     static Stats()
     {
@@ -67,6 +131,3 @@ public static class Stats
         config.Save("user://stats.cfg");
     }
 }
-
-//TODO: Add Time Spent Playing stat
-//TODO: Add Times Boosted
