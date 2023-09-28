@@ -37,6 +37,7 @@ public partial class GameplayController : Node2D
     static ulong Score = 0;
     public static sbyte Lives = 5;
     public static float Difficulty = 1;
+    public static float LerpedDifficulty = 1;
     static uint EnemiesSinceLastIncident = 0;
 
     // Called when the node enters the scene tree for the first time.
@@ -46,7 +47,8 @@ public partial class GameplayController : Node2D
 
         Score = 0;
         Lives = 5;
-        Difficulty = 1.2f;
+        Difficulty = 2f;
+        LerpedDifficulty = 1;
         EnemiesSinceLastIncident = 0;
 
         currentGameplayState = GameplayState.Running;
@@ -81,6 +83,7 @@ public partial class GameplayController : Node2D
         HandlePlayerInput();
 
         Difficulty += (float)delta * 0.001f;
+        LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
 
         testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
             + "\nDiff: " + Difficulty;

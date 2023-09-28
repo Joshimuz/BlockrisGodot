@@ -39,7 +39,7 @@ public partial class Spawner : Timer
     public override void _Ready()
     {
 		Timeout += TimerUp;
-        WaitTime = 1;
+        WaitTime = 1f + GameplayController.RNG.RandfRange(-0.1f, 0.1f);
 
         // Create the spawnable list
         InitSpawnables();
@@ -95,18 +95,22 @@ public partial class Spawner : Timer
     {
         spawnables = new List<Spawnable>
         {
-            new(basicEnemy, 7, 0f, 1.5f),
-            new(basicEnemy, 5, 1.5f, 2f),
+            new(basicEnemy, 7, 0f, 1.25f),
+            new(basicEnemy, 6, 1.25f, 1.5f),
+            new(basicEnemy, 5, 1.5f, 1.75f),
+            new(basicEnemy, 4, 1.75f, 2f),
             new(basicEnemy, 3, 2f, float.PositiveInfinity),
 
             new(spikeyEnemy, 1, 1.05f, 2f),
             new(spikeyEnemy, 2, 1.1f, 2f),
             new(spikeyEnemy, 2, 1.25f, float.PositiveInfinity),
 
-            new(OneUpEnemy, 1, 1.25f, float.PositiveInfinity, true, true),
-            new(OneUpEnemy, 1, 1.5f, float.PositiveInfinity, true, true),
-            new(OneUpEnemy, 1, 1.75f, float.PositiveInfinity, true, true),
-            new(OneUpEnemy, 1, 2f, float.PositiveInfinity, true, true),
+            new(OneUpEnemy, 1, 1.25f, 1.5f, true, true),
+            new(OneUpEnemy, 1, 1.5f, 1.75f, true, true),
+            new(OneUpEnemy, 1, 1.75f, 2f, true, true),
+            new(OneUpEnemy, 1, 2f, 2.25f, true, true),
+            new(OneUpEnemy, 1, 2.25f, 2.5f, true, true),
+            new(OneUpEnemy, 1, 2.5f, 2.75f, true, true),
 
             new(DVDEnemy, 1, 1.5f, float.PositiveInfinity),
             new(DVDEnemy, 2, 1.6f, float.PositiveInfinity),

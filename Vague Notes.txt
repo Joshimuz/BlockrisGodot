@@ -28,7 +28,7 @@ Boost Bar Display
 Possible Enemy Types
 	Basic Enemy (moves striahgt down, want to hit)
 	"Spikey" Enemy (moves straight down, DONT want to hit)
-	DVD Screensaver Enemy (bounces from left to right (same as Diagonal moving?))
+	DVD Screensaver Enemy (bounces from left to right)
 	Shooting Enemy (shoots when player under it, but want to hit it)
 	Transforming Enemy (becomes another random enemy)
 	Status Changing Enemy (want to hit, but does something like reverse controls?)
