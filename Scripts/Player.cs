@@ -11,7 +11,12 @@ public partial class Player : Sprite2D
 
     [Export] float boostMultiplyer;
 
-    float currentBoostAmount; //TODO: Implement Boosting amount
+	float currentBoostAmount;
+	float MaximumBoost = 1f;
+	/// <summary>
+	/// The amount to multiple delta by every frame for boos regeneration
+	/// </summary>
+	const float BoostRegenRate = 0.1f;
 	
 	public Vector2 CurrentDirection;
 
@@ -24,15 +29,13 @@ public partial class Player : Sprite2D
 	{
 		GetChild<Area2D>(0).AreaEntered += EnteredCollision;
 
-		currentBoostAmount = 100;
+		currentBoostAmount = MaximumBoost;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
         Vector2 newPosition = Position;
-
-		//TODO: Recover boost every frame (by delta plz)
 
         if (CurrentDirection != previousDirection)
         {
@@ -47,15 +50,21 @@ public partial class Player : Sprite2D
             }
         }
 
-		if (WantsToBoost && currentBoostAmount > 0)
+		if (WantsToBoost && currentBoostAmount >= (float)delta)
 		{
             newPosition += CurrentDirection * 
 				(MovementSpeed * boostMultiplyer * (float)delta);
-			//TODO: Consume Boost
+
+			// Use boost to a minimum of 0
+            currentBoostAmount = MathF.Max(currentBoostAmount -= (float)delta, 0);
         }
 		else
 		{
             newPosition += CurrentDirection * (MovementSpeed * (float)delta);
+
+            // Regenerate boost to a maximum of MaximumBoost
+            currentBoostAmount = MathF.Min(currentBoostAmount 
+				+= (float)delta * BoostRegenRate, MaximumBoost);
         }
 
         newPosition.X = Math.Clamp(newPosition.X, 64, 1080 - 64);
@@ -65,6 +74,8 @@ public partial class Player : Sprite2D
         previousDirection = CurrentDirection;
 		CurrentDirection = Vector2.Zero;
 		WantsToBoost = false;
+
+		GameplayController.testText.Text += "\nBoost: " + currentBoostAmount;
     }
 
 	public void EnteredCollision(Area2D otherCollision)

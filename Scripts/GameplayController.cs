@@ -24,7 +24,7 @@ public partial class GameplayController : Node2D
 
     [Export] PackedScene packedPlayer;
 
-    [Export] RichTextLabel testText;
+    [Export] public static RichTextLabel testText;
 
     Vector2 TouchPosition;
 
@@ -58,6 +58,8 @@ public partial class GameplayController : Node2D
         RNG.Randomize();
 
         //TODO: Record the RNG seed and store it somewhere for replays
+
+        testText = GetNode<RichTextLabel>("RichTextLabel");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

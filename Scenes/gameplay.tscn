@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
 
-[node name="GameController" type="Node2D" node_paths=PackedStringArray("testText")]
+[node name="GameController" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_nt1ga")
 packedSpawner = ExtResource("2_ewlri")
 packedPlayer = ExtResource("2_yt8s7")
-testText = NodePath("RichTextLabel")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_right = 1068.0
