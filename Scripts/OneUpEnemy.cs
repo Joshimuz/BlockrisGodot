@@ -12,7 +12,9 @@ public partial class OneUpEnemy : Enemy
 
         MovementSpeedScale = 6.25f;
 
-        defaultScale = 96f;
+        // 128 / 1.333 = 96, which was the desired size of the enemy
+        // doing it like this to keep the random variation set in base._Ready()
+        defaultScale = defaultScale / 1.333f;
 
         Stats.OneUpEnemiesSeen++;
     }

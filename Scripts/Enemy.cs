@@ -21,7 +21,13 @@ public abstract partial class Enemy : Sprite2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Apply slight random scaling for variation in both size and speed
+        defaultScale += GameplayController.RNG.RandfRange(-8f, 8f);
+
         Scale = new Vector2(defaultScale, defaultScale);
+
+        // Apply slight random roation for variation
+        RotationDegrees += GameplayController.RNG.RandfRange(-2f, 2f);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -37,6 +37,14 @@ Possible Enemy Types
 	"Mirror" Enemy (copies your movement, but if hit's another enemy gets killed)
 	Planet and Moon Enemy (spikey enemy in center with a normal enemy rotating around it)
 	
+Enemy Designs
+	Use clear silhouetting to signal to the player what they want/need to do with each enemy
+	Squares = Have to hit
+	Triangles = Don't want to hit
+	Circles = Optional to hit
+	Maybe come up with some more shapes/ideas for silhouette, or merging of shapes
+	A square should never be rotated ~45 degrees otherwise it looks like a triangle (pointy)
+	
 Replays
 	Record the RNG Seed at the top of the replay file
 	(use UNIX Timestamp as RNG Seed and maybe something else?)

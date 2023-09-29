@@ -47,7 +47,7 @@ public partial class GameplayController : Node2D
 
         Score = 0;
         Lives = 5;
-        Difficulty = 2f;
+        Difficulty = 1f;
         LerpedDifficulty = 1;
         EnemiesSinceLastIncident = 0;
 
@@ -131,7 +131,7 @@ public partial class GameplayController : Node2D
 
         EnemiesSinceLastIncident++;
 
-        Difficulty += (float)(1 - Math.Exp(-0.05 * Mathf.Min(EnemiesSinceLastIncident, 15))) * 0.005f;
+        Difficulty += (float)(1 - Math.Exp(-0.05 * Mathf.Min(EnemiesSinceLastIncident, 25))) * 0.007f;
     }
 
     public static void PlayerFouled(uint points)
@@ -185,3 +185,4 @@ public partial class GameplayController : Node2D
 //TODO: Implement alternate/slider control scheme
 //TODO: Implement some kind of difficulty scaling
 //TODO: Fix out render order and put text above enemies
+//TODO: Also track the highest-latest difficulty

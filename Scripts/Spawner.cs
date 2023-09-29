@@ -117,4 +117,17 @@ public partial class Spawner : Timer
             new(DVDEnemy, 2, 1.7f, float.PositiveInfinity),
         };
     }
+
+    //TODO: Try new spawning method described below:
+    //Make a class for each possible spawnable enemy and create a list with every enemy in it
+    //starting from least likely to spawn to most likely. Make a function for SpawningConditions
+    //and SpawningProceedure
+    //Get a random RNG "weight" value
+    //Iterate over the list and check if SpawningCondition == true
+    //If so call SpawningProceedure()
+    //SpawningCondition can be basic stuff like if the RNG "weight" value is correct or not
+    //but can also be more complex stuff like "if Difficulty reached this threashold spawn regardless"
+    //SpawningProceedure can be basic stuff like "hurr durr spawn enemy" but it could do more
+    //like maybe spawning two! Or in the case of a OneUp it could return false to let
+    //the Spawner know to keep iterating through the loop instead of breaking
 }
