@@ -16,6 +16,10 @@ Difficulty System
 	Rate of spawning objectes tied to difficulty
 	Types of objects spawned tied to difficulty 
 	Boost speed increases with difficulty(???)
+	
+Have some kind of "max spawn distance" system
+	Eneimes can only spawn so far away from the previous one
+	To prevent "impossible" spawns from happening (on static enemies)
 
 Inital Player Size
 	From rough "feel" testing, 128x128 seems like a

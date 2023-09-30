@@ -45,7 +45,7 @@ public abstract partial class Enemy : Sprite2D
     {
         Position += Vector2.Down * (movementSpeed * delta);
 
-        if (Position.Y > 1920 + 64)
+        if (Position.Y > 1920 + (Scale.Y / 2))
         {
             ReachedBottom();
         }

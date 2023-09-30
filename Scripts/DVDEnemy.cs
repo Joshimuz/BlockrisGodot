@@ -37,7 +37,7 @@ public partial class DVDEnemy : Enemy
             currentDirection = new Vector2(-1, 1);
         }
 
-        if (Position.Y > 1920 + 64)
+        if (Position.Y > 1920 + (Scale.Y / 2))
         {
             ReachedBottom();
         }
