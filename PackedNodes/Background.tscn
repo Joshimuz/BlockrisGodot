@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://deute7xhgs0kf"]
+
+[ext_resource type="Script" path="res://Scripts/Background.cs" id="1_uxymg"]
+
+[node name="Background" type="Sprite2D"]
+z_index = -100
+position = Vector2(0, -2)
+script = ExtResource("1_uxymg")

@@ -11,6 +11,8 @@ public partial class MainMenuController : Node2D
         globalController = GetNode<GlobalController>("/root/GlobalController");
 
         GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnButoootan;
+
+		Background.TargetStarMovespeed = 1;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

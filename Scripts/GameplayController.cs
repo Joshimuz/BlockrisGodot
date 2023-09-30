@@ -68,6 +68,8 @@ public partial class GameplayController : Node2D
         //TODO: Record the RNG seed and store it somewhere for replays
 
         testText = GetNode<RichTextLabel>("RichTextLabel");
+
+        Background.TargetStarMovespeed = 10;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
