@@ -11,7 +11,7 @@ public partial class GameplayController : Node2D
     public static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
     enum GameplayState
-    { 
+    {
         Intro, //TODO: Add Gameplay Intro stuff
         Running,
         End //TODO: Add Gameplay Outro/End/Deathscreen/Highscore stuff
@@ -34,7 +34,7 @@ public partial class GameplayController : Node2D
 
     Dictionary<int, Vector2> touchDic = new Dictionary<int, Vector2>();
 
-    static ulong Score = 0;
+    public static ulong Score { get; private set; } = 0 ;
     public static sbyte Lives = 5;
     public static float Difficulty = 1;
     public static float LerpedDifficulty = 1;

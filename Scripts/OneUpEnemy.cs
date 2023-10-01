@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using static Spawner;
+using System.Collections.Generic;
 
 public partial class OneUpEnemy : Enemy
 {
@@ -31,5 +33,27 @@ public partial class OneUpEnemy : Enemy
     {
         Stats.BlocksMissed++;
         QueueFree();
+    }
+
+    public class Spawnable : Spawner.ISpawnable
+    {
+        ulong ScoreLastSpawnedAt = 0;
+
+        public string PackedSceneFilePath => "res://PackedNodes/OneUpEnemy.tscn";
+
+        public byte NumberToSpawn { get; set; } = 1;
+
+        public bool SpawnAfter => true;
+
+        public bool ShouldSpawn()
+        {
+            if (GameplayController.Score > ScoreLastSpawnedAt + 9999)
+            {
+                ScoreLastSpawnedAt = GameplayController.Score;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

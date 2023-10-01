@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using static Spawner;
+using System.Collections.Generic;
 
 public partial class DVDEnemy : Enemy
 {
@@ -41,5 +43,41 @@ public partial class DVDEnemy : Enemy
         {
             ReachedBottom();
         }
+    }
+
+    public class Spawnable : Spawner.ISpawnable
+    {
+        public string PackedSceneFilePath => "res://PackedNodes/DVDEnemy.tscn";
+
+        public byte NumberToSpawn { get; set; } = 0;
+
+        public bool SpawnAfter => false;
+
+        public bool ShouldSpawn()
+        {
+            NumberToSpawn = 0;
+
+            bool returnValue = false;
+
+            foreach ((float MinDiff, float MaxDiff, byte NumberToSpawn)
+                condition in spawnConditions)
+            {
+                if (GameplayController.Difficulty > condition.MinDiff
+                    && GameplayController.Difficulty < condition.MaxDiff)
+                {
+                    NumberToSpawn += condition.NumberToSpawn;
+                    returnValue = true;
+                }
+            }
+
+            return returnValue;
+        }
+
+        List<(float MinDiff, float MaxDiff, byte NumberToSpawn)> spawnConditions = new()
+        {
+            (1.5f, float.PositiveInfinity, 1),
+            (1.6f, float.PositiveInfinity, 2),
+            (1.7f, float.PositiveInfinity, 2),
+        };
     }
 }

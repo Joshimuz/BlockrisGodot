@@ -100,3 +100,5 @@ public partial class GlobalController : Node
         }
     }
 }
+
+//TODO: Figure out how to center the game in the viewport instead of being to the top left
