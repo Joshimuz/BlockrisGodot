@@ -3,7 +3,7 @@ using System;
 using static Spawner;
 using System.Collections.Generic;
 
-public partial class DVDEnemy : Enemy
+public partial class TriangleDVDEnemy : Enemy
 {
     protected override ushort Points => 200;
 
@@ -14,7 +14,7 @@ public partial class DVDEnemy : Enemy
     {
         base._Ready();
 
-        Stats.DVDEnemiesSeen++;
+        Stats.TriangleDVDEnemiesSeen++;
 
         if (GameplayController.RNG.Randf() > 0.5f)
         {
@@ -45,9 +45,25 @@ public partial class DVDEnemy : Enemy
         }
     }
 
+    public override void OnPlayerHit()
+    {
+        GameplayController.PlayerFouled(Points);
+
+        Stats.BlocksHit++;
+        QueueFree();
+    }
+
+    protected override void ReachedBottom()
+    {
+        GameplayController.PlayerScored(Points);
+
+        Stats.BlocksMissed++;
+        QueueFree();
+    }
+
     public class Spawnable : Spawner.ISpawnable
     {
-        public string PackedSceneFilePath => "res://PackedNodes/DVDEnemy.tscn";
+        public string PackedSceneFilePath => "res://PackedNodes/TriangleDVDEnemy.tscn";
 
         public byte NumberToSpawn { get; set; } = 0;
 
@@ -75,9 +91,9 @@ public partial class DVDEnemy : Enemy
 
         List<(float MinDiff, float MaxDiff, byte NumberToSpawn)> spawnConditions = new()
         {
-            (1.5f, float.PositiveInfinity, 1),
-            (1.7f, float.PositiveInfinity, 1),
             (1.9f, float.PositiveInfinity, 1),
+            (2.1f, float.PositiveInfinity, 1),
+            (2.3f, float.PositiveInfinity, 1),
         };
     }
 }

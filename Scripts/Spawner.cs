@@ -35,6 +35,7 @@ public partial class Spawner : Timer
         spawnables.Add(new SpikeyEnemy.Spawnable());
         spawnables.Add(new DVDEnemy.Spawnable());
         spawnables.Add(new OneUpEnemy.Spawnable());
+        spawnables.Add(new TriangleDVDEnemy.Spawnable());
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -55,6 +55,22 @@ Replays
 	Record inputs, keep all RNG/Physics deterministic
 	For leaderboards, verify replays with a game simulator
 	Also record current game version in the replay
+	
+"Plan Ahead" Gamemode
+	Place Player block in a position for X amount of seconds
+	See if it avoids enemies/collects blocks
+	Freeze after time is up and get player to place in new position
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 Collision
 	Players and enimies have area2D

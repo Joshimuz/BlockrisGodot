@@ -106,6 +106,12 @@ public static class Stats
         set { config.SetValue("Stats", "DVDEnemiesSeen", value); }
     }
 
+    public static ulong TriangleDVDEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "TriangleDVDEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "TriangleDVDEnemiesSeen", value); }
+    }
+
     public static ulong OneUpEnemiesSeen
     {
         get { return (ulong)config.GetValue("Stats", "OneUpEnemiesSeen", 0); }
