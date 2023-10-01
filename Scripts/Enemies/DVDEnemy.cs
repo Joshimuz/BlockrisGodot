@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class DVDEnemy : Enemy
 {
-    protected override ushort Points => 200;
+    public override ushort Points { get; set; } = 200;
 
     Vector2 currentDirection;
 
@@ -47,7 +47,7 @@ public partial class DVDEnemy : Enemy
 
     public class Spawnable : Spawner.ISpawnable
     {
-        public string PackedSceneFilePath => "res://PackedNodes/DVDEnemy.tscn";
+        public string PackedSceneFilePath => "res://PackedNodes/Enemies/DVD.tscn";
 
         public byte NumberToSpawn { get; set; } = 0;
 
@@ -75,9 +75,10 @@ public partial class DVDEnemy : Enemy
 
         List<(float MinDiff, float MaxDiff, byte NumberToSpawn)> spawnConditions = new()
         {
-            (1.5f, float.PositiveInfinity, 1),
-            (1.7f, float.PositiveInfinity, 1),
-            (1.9f, float.PositiveInfinity, 1),
+            (1.25f, 2f, 1),
+            (1.4f, 2.1f, 1),
+            (1.6f, 2.3f, 1),
+            (1.8f, float.PositiveInfinity, 1),
         };
     }
 }

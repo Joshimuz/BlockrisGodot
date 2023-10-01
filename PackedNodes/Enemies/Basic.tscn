@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://b4ivh0okbxatj"]
 
-[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="1_wmea4"]
-[ext_resource type="Script" path="res://Scripts/BasicEnemy.cs" id="2_6sy6c"]
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="1_2ertl"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy.cs" id="2_j1yhq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_25g3l"]
 size = Vector2(1, 1)
 
 [node name="BasicEnemy" type="Sprite2D"]
 scale = Vector2(128, 128)
-texture = ExtResource("1_wmea4")
-script = ExtResource("2_6sy6c")
+texture = ExtResource("1_2ertl")
+script = ExtResource("2_j1yhq")
 
 [node name="Area2D" type="Area2D" parent="."]
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_25g3l")

@@ -52,7 +52,7 @@ public partial class Background : Sprite2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        StarMovespeed = Mathf.Lerp(StarMovespeed, TargetStarMovespeed, (float)delta / 10f);
+        StarMovespeed = Mathf.Lerp(StarMovespeed, TargetStarMovespeed, (float)delta / 5f);
 
         foreach (var star in stars)
         {

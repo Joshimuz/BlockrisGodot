@@ -94,10 +94,10 @@ public static class Stats
         set { config.SetValue("Stats", "BasicEnemiesSeen", value); }
     }
 
-    public static ulong SpikeyEnemiesSeen
+    public static ulong TriangleEnemiesSeen
     {
-        get { return (ulong)config.GetValue("Stats", "SpikeyEnemiesSeen", 0); }
-        set { config.SetValue("Stats", "SpikeyEnemiesSeen", value); }
+        get { return (ulong)config.GetValue("Stats", "TriangleEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "TriangleEnemiesSeen", value); }
     }
 
     public static ulong DVDEnemiesSeen
@@ -116,6 +116,12 @@ public static class Stats
     {
         get { return (ulong)config.GetValue("Stats", "OneUpEnemiesSeen", 0); }
         set { config.SetValue("Stats", "OneUpEnemiesSeen", value); }
+    }
+
+    public static ulong ShootingEnemiesSeen
+    {
+        get { return (ulong)config.GetValue("Stats", "ShootingEnemiesSeen", 0); }
+        set { config.SetValue("Stats", "ShootingEnemiesSeen", value); }
     }
     #endregion
 

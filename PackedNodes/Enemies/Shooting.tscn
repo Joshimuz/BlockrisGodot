@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://djibnqmmg4ewe"]
+
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="1_w6qdw"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ShootingEnemy.cs" id="2_j6ihf"]
+[ext_resource type="Texture2D" uid="uid://ce0w8iorb55s7" path="res://Textures/Crosshair.png" id="3_j38sp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25g3l"]
+size = Vector2(1, 1)
+
+[node name="ShootingEnemy" type="Sprite2D"]
+scale = Vector2(128, 128)
+texture = ExtResource("1_w6qdw")
+script = ExtResource("2_j6ihf")
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_25g3l")
+
+[node name="ShootingArea" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootingArea"]
+shape = SubResource("RectangleShape2D_25g3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="ShootingArea"]
+position = Vector2(0.0859376, 0.0195313)
+scale = Vector2(0.0109863, 0.0112915)
+texture = ExtResource("3_j38sp")

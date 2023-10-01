@@ -12,11 +12,11 @@ public abstract partial class Enemy : Sprite2D
     /// The amount to times the scale of the player by, for MovementSpeed, use this to change movement speed
     /// </summary>
     //protected float MovementSpeedScale = 6.25f;
-    protected float MovementSpeedScale = 3.125f;
+    public float MovementSpeedScale = 3.125f;
 
-    protected abstract ushort Points { get; }
+    public abstract ushort Points { get; set; }
 
-    protected float defaultScale = 128f;
+    public float defaultScale = 128f;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

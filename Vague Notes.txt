@@ -41,6 +41,13 @@ Possible Enemy Types
 	"Mirror" Enemy (copies your movement, but if hit's another enemy gets killed)
 	Planet and Moon Enemy (spikey enemy in center with a normal enemy rotating around it)
 	
+Enemy "tutorials"
+	First X times (3?) you see a new enemy type
+	Get spawner to slow down massively
+	Clear the Shuffle Bag
+	Spawn enemy in a way in which it's not surrourned by other enemies
+	Try to find ways to make it clear what each type does
+	
 Enemy Designs
 	Use clear silhouetting to signal to the player what they want/need to do with each enemy
 	Squares = Have to hit

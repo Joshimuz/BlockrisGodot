@@ -32,10 +32,11 @@ public partial class Spawner : Timer
 
         // Create the spawnable list
         spawnables.Add(new BasicEnemy.Spawnable());
-        spawnables.Add(new SpikeyEnemy.Spawnable());
+        spawnables.Add(new TriangleEnemy.Spawnable());
         spawnables.Add(new DVDEnemy.Spawnable());
         spawnables.Add(new OneUpEnemy.Spawnable());
         spawnables.Add(new TriangleDVDEnemy.Spawnable());
+        spawnables.Add(new ShootingEnemy.Spawnable());
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,22 +62,22 @@ public partial class Spawner : Timer
             }
         }
 
-        GD.Print("ShuffleBag Contains: ");
-        foreach (ISpawnable spawnable in ShuffleBag)
-        {
-            GD.Print(spawnable.PackedSceneFilePath + ", ");
-        }
+        //GD.Print("ShuffleBag Contains: ");
+        //foreach (ISpawnable spawnable in ShuffleBag)
+        //{
+        //    //GD.Print(spawnable.PackedSceneFilePath + ", ");
+        //}
 
         int k = GameplayController.RNG.RandiRange(0, ShuffleBag.Count - 1);
 
         bool spawnAgain = ShuffleBag[k].SpawnAfter;
 
-        Enemy newEmemy = ResourceLoader
+        Enemy newEnemy = ResourceLoader
                 .Load<PackedScene>(ShuffleBag[k].PackedSceneFilePath).Instantiate<Enemy>();
 
-        AddSibling(newEmemy);
+        AddSibling(newEnemy);
 
-        newEmemy.GlobalPosition
+        newEnemy.GlobalPosition
              = new Vector2(GameplayController.RNG.RandfRange(0 + 64, 1080 - 64), 0);
 
         ShuffleBag.RemoveAt(k);

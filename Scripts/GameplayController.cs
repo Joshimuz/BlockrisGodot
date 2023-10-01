@@ -69,7 +69,7 @@ public partial class GameplayController : Node2D
 
         testText = GetNode<RichTextLabel>("RichTextLabel");
 
-        Background.TargetStarMovespeed = 10;
+        Background.TargetStarMovespeed = 25;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -125,6 +125,11 @@ public partial class GameplayController : Node2D
 
     public static void PlayerScored(uint points)
     {
+        if (points <= 0)
+        {
+            return;
+        }
+
         ulong pointsToAdd = (ulong)(points * Difficulty);
 
         Score += pointsToAdd;
@@ -133,7 +138,7 @@ public partial class GameplayController : Node2D
 
         EnemiesSinceLastIncident++;
 
-        Difficulty += (float)(1 - Math.Exp(-0.05 * Mathf.Min(EnemiesSinceLastIncident, 25))) * 0.007f;
+        Difficulty += (float)(1 - Math.Exp(-0.05 * Mathf.Min(EnemiesSinceLastIncident, 50))) * 0.007f;
     }
 
     public static void PlayerFouled(uint points)
@@ -146,7 +151,7 @@ public partial class GameplayController : Node2D
             return;
         }
 
-        Difficulty = Math.Max(Difficulty * 0.9f, 1);
+        Difficulty = Math.Max(Difficulty - 0.1f, 0.5f);
 
         EnemiesSinceLastIncident = 0;
     }

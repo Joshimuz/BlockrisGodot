@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class OneUpEnemy : Enemy
 {
-    protected override ushort Points => 0;
+    public override ushort Points { get; set; } = 0;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -39,7 +39,9 @@ public partial class OneUpEnemy : Enemy
     {
         ulong ScoreLastSpawnedAt = 0;
 
-        public string PackedSceneFilePath => "res://PackedNodes/OneUpEnemy.tscn";
+        float DifficulyLastSpawnedAt = 1f;
+
+        public string PackedSceneFilePath => "res://PackedNodes/Enemies/OneUp.tscn";
 
         public byte NumberToSpawn { get; set; } = 1;
 
@@ -47,9 +49,11 @@ public partial class OneUpEnemy : Enemy
 
         public bool ShouldSpawn()
         {
-            if (GameplayController.Score > ScoreLastSpawnedAt + 9999)
+            if (GameplayController.Score > ScoreLastSpawnedAt + 4444
+                && GameplayController.Difficulty > DifficulyLastSpawnedAt + 0.1f)
             {
                 ScoreLastSpawnedAt = GameplayController.Score;
+                DifficulyLastSpawnedAt = GameplayController.Difficulty;
                 return true;
             }
 

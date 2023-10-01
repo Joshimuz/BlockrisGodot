@@ -110,3 +110,4 @@ public partial class Player : Sprite2D
 	}
 }
 //TODO: Figure out how to handle sprite sizes for scaling instead of Transform scale alone
+//TODO: Test wrapping around from edges of the screen to the other edge
