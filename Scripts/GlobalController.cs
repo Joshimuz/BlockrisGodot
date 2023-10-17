@@ -91,6 +91,16 @@ public partial class GlobalController : Node
             || notification == NotificationWMGoBackRequest)
         {
             Stats.CommitToDisk();
+
+            // If the game is in Windowed mode, get the current position of the window
+            // and store it for next time
+            if (DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed)
+            {
+                ProjectSettings.SetSetting("display/window/size/initial_position",
+                    DisplayServer.WindowGetPosition());
+
+                ProjectSettings.SaveCustom("override.cfg");
+            }
         }
 
         if (notification == NotificationApplicationFocusOut

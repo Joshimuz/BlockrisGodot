@@ -19,3 +19,4 @@ mono_crash.*.json
 *.pck
 *.exe
 *.idsig
+*.zip

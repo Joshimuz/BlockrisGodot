@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://47hqi1d1tidt"]
+
+[ext_resource type="Script" path="res://Scripts/OptionsMenu.cs" id="1_uturh"]
+[ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="2_1sbpu"]
+
+[node name="OptionsMenu" type="Node2D"]
+script = ExtResource("1_uturh")
+
+[node name="WindowMode" type="TouchScreenButton" parent="."]
+position = Vector2(82, 199)
+scale = Vector2(250, 250)
+texture_normal = ExtResource("2_1sbpu")
+
+[node name="TextSizer" type="Node2D" parent="WindowMode"]
+scale = Vector2(0.004, 0.004)
+metadata/_edit_lock_ = true
+
+[node name="Text" type="RichTextLabel" parent="WindowMode/TextSizer"]
+offset_right = 252.0
+offset_bottom = 248.0
+theme_override_font_sizes/normal_font_size = 45
+text = "Windowed"
+metadata/_edit_lock_ = true
+
+[node name="AAMode" type="TouchScreenButton" parent="."]
+position = Vector2(709, 199)
+scale = Vector2(250, 250)
+texture_normal = ExtResource("2_1sbpu")
+
+[node name="TextSizer" type="Node2D" parent="AAMode"]
+scale = Vector2(0.004, 0.004)
+metadata/_edit_lock_ = true
+
+[node name="Text" type="RichTextLabel" parent="AAMode/TextSizer"]
+offset_right = 252.0
+offset_bottom = 248.0
+theme_override_font_sizes/normal_font_size = 45
+text = "MSAA x"
+metadata/_edit_lock_ = true
