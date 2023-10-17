@@ -15,8 +15,8 @@ public partial class Player : Sprite2D
 
     float boostMultiplyer = 2;
 
-	float currentBoostAmount;
-	float MaximumBoost = 1f;
+    public float currentBoostAmount { get; private set; }
+    public float MaximumBoost { get; private set; } = 1f;
 	/// <summary>
 	/// The amount to multiple delta by every frame for boos regeneration
 	/// </summary>

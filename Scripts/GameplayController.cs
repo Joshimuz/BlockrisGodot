@@ -25,6 +25,8 @@ public partial class GameplayController : Node2D
 
     [Export] public static RichTextLabel testText;
 
+    [Export] public TextureProgressBar boostBar;
+
     Vector2 TouchPosition;
 
     Player player;
@@ -70,6 +72,8 @@ public partial class GameplayController : Node2D
         testText = GetNode<RichTextLabel>("RichTextLabel");
 
         Background.TargetStarMovespeed = 25;
+
+        boostBar.TintProgress = new Color(1f, 0f, 0f, 0f);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -92,6 +96,9 @@ public partial class GameplayController : Node2D
 
         Stats.LatestScore = Score;
         Stats.LatestDifficulty = Difficulty;
+
+        HandleUI();
+
     }
 
     void HandlePlayerInput()
@@ -121,6 +128,21 @@ public partial class GameplayController : Node2D
                 player.WantsToBoost = true;
             }
         }
+    }
+
+    void HandleUI()
+    {
+        if (player.currentBoostAmount == player.MaximumBoost)
+        {
+            boostBar.TintProgress = new Color(0f, 1f, 0f, boostBar.TintProgress.A - 0.01f);
+        }
+        else
+        {
+            boostBar.TintProgress = new Color((float)(1 - boostBar.Value), (float)boostBar.Value, 0f, 1f);
+        }
+
+        boostBar.Value = player.currentBoostAmount;
+        //boostBar.Value = Mathf.Lerp(boostBar.Value, player.currentBoostAmount, 0.1f);
     }
 
     public static void PlayerScored(uint points)
