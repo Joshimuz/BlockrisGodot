@@ -1,7 +1,3 @@
-Boost Bar Display
-	Have a centered bar that gets smaller at both ends,
-	to shrink towards the centre so eaiser to see when thumbs covering screen
-	
 Visible areas for movement input
 	Have fake transparent "buttons" to inidcate where to press to move
 	Boost Left, Left, Right, Boost Right
@@ -89,3 +85,7 @@ Collision
 	and enimes can overlap over enimies)
 	Player informs enemy that they overlap
 	Enemy has logic for handling touching player
+	
+Boost Bar Display
+	Have a centered bar that gets smaller at both ends,
+	to shrink towards the centre so eaiser to see when thumbs covering screen

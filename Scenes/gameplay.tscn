@@ -6,15 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
 [ext_resource type="Texture2D" uid="uid://dx5j8loedptwd" path="res://Textures/White Pixel.png" id="5_sfyvv"]
 
-[node name="GameController" type="Node2D" node_paths=PackedStringArray("boostBar")]
+[node name="GameController" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_nt1ga")
 packedSpawner = ExtResource("2_ewlri")
 packedPlayer = ExtResource("2_yt8s7")
-boostBar = NodePath("TextureProgressBar")
 metadata/_edit_lock_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="GameplayUI" type="Node2D" parent="."]
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameplayUI"]
 offset_right = 1068.0
 offset_bottom = 1019.0
 theme_override_font_sizes/normal_font_size = 50
@@ -22,14 +24,14 @@ text = "HELLO
 "
 metadata/_edit_lock_ = true
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+[node name="TouchScreenButton" type="TouchScreenButton" parent="GameplayUI"]
 process_mode = 3
 position = Vector2(979, 1)
 scale = Vector2(100, 100)
 texture_normal = ExtResource("4_3furi")
 metadata/_edit_lock_ = true
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="BoostBar" type="TextureProgressBar" parent="GameplayUI"]
 offset_left = 153.0
 offset_top = 1778.0
 offset_right = 931.0
@@ -40,3 +42,19 @@ value = 0.5
 fill_mode = 6
 nine_patch_stretch = true
 texture_progress = ExtResource("5_sfyvv")
+
+[node name="GameOverScreen" type="Node2D" parent="."]
+z_index = 2
+
+[node name="YouDiedXD" type="RichTextLabel" parent="GameOverScreen"]
+offset_left = 159.0
+offset_top = 267.0
+offset_right = 1236.0
+offset_bottom = 904.0
+theme_override_font_sizes/normal_font_size = 100
+text = "YOU DIED XD"
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="GameOverScreen"]
+position = Vector2(367, 1484)
+scale = Vector2(250, 250)
+texture_normal = ExtResource("4_3furi")

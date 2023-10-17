@@ -17,7 +17,7 @@ public partial class GameplayController : Node2D
         End //TODO: Add Gameplay Outro/End/Deathscreen/Highscore stuff
     }
 
-    GameplayState currentGameplayState = GameplayState.Intro;
+    static GameplayState currentGameplayState = GameplayState.Intro;
 
     [Export] PackedScene packedSpawner;
 
@@ -25,7 +25,10 @@ public partial class GameplayController : Node2D
 
     [Export] public static RichTextLabel testText;
 
-    [Export] public TextureProgressBar boostBar;
+    TextureProgressBar boostBar;
+
+    Node2D gameOverScreen;
+    Node2D gameplayUI;
 
     Vector2 TouchPosition;
 
@@ -53,52 +56,92 @@ public partial class GameplayController : Node2D
         LerpedDifficulty = 1;
         EnemiesSinceLastIncident = 0;
 
-        currentGameplayState = GameplayState.Running;
-
-        spawner = packedSpawner.Instantiate<Spawner>();
-        AddChild(spawner);
-
-        player = packedPlayer.Instantiate<Player>();
-        AddChild(player);
-        player.Position = new Vector2(540, 1600);
-
-        GetNode<TouchScreenButton>("TouchScreenButton").Pressed += OnPauseButton;
+        GetNode<TouchScreenButton>("GameplayUI/TouchScreenButton").Pressed += OnPauseButton;
+        GetNode<TouchScreenButton>("GameOverScreen/TouchScreenButton").Pressed += OnExitButton;
 
         // Create a new RNG seed
         RNG.Randomize();
 
         //TODO: Record the RNG seed and store it somewhere for replays
 
-        testText = GetNode<RichTextLabel>("RichTextLabel");
+        testText = GetNode<RichTextLabel>("GameplayUI/RichTextLabel");
 
-        Background.TargetStarMovespeed = 25;
-
+        boostBar = GetNode<TextureProgressBar>("GameplayUI/BoostBar");
         boostBar.TintProgress = new Color(1f, 0f, 0f, 0f);
+
+        gameOverScreen = GetNode<Node2D>("GameOverScreen");
+        gameplayUI = GetNode<Node2D>("GameplayUI");
+
+        gameOverScreen.Visible = false;
+        gameOverScreen.ProcessMode = ProcessModeEnum.Disabled;
+
+        gameplayUI.Visible = false;
+        gameplayUI.ProcessMode = ProcessModeEnum.Disabled;
+
+        ChangeGamplayState(GameplayState.Running);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
-        if (Lives <= 0)
+        if (currentGameplayState == GameplayState.Running)
         {
-            currentGameplayState = GameplayState.End;
+            if (Lives <= 0)
+            {
+                ChangeGamplayState(GameplayState.End);
+            }
 
-            globalController.ChangeGameState(GlobalController.GameState.MainMenu);
+            HandlePlayerInput();
+
+            Difficulty += (float)delta * 0.001f;
+            LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
+
+            testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
+                + "\nDiff: " + Difficulty;
+
+            Stats.LatestScore = Score;
+            Stats.LatestDifficulty = Difficulty;
+
+            HandleUI();
+        }
+    }
+
+    void ChangeGamplayState(GameplayState requestedGameplayState)
+    {
+        switch (requestedGameplayState)
+        {
+            case GameplayState.Intro:
+                break;
+
+            case GameplayState.Running:
+                spawner = packedSpawner.Instantiate<Spawner>();
+                AddChild(spawner);
+
+                player = packedPlayer.Instantiate<Player>();
+                AddChild(player);
+                player.Position = new Vector2(540, 1600);
+
+                Background.TargetStarMovespeed = 25;
+
+                gameplayUI.Visible = true;
+                gameplayUI.ProcessMode = ProcessModeEnum.Inherit;
+                break;
+
+            case GameplayState.End:
+                spawner.QueueFree();
+
+                gameOverScreen.Visible = true;
+                gameOverScreen.ProcessMode = ProcessModeEnum.Inherit;
+
+                gameplayUI.Visible = false;
+                gameplayUI.ProcessMode = ProcessModeEnum.Disabled;
+
+                GetNode<RichTextLabel>("GameOverScreen/YouDiedXD").Text
+                    += "\n\nScore: " + Score;
+                break;
         }
 
-        HandlePlayerInput();
-
-        Difficulty += (float)delta * 0.001f;
-        LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
-
-        testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
-            + "\nDiff: " + Difficulty;
-
-        Stats.LatestScore = Score;
-        Stats.LatestDifficulty = Difficulty;
-
-        HandleUI();
-
+        currentGameplayState = requestedGameplayState;
     }
 
     void HandlePlayerInput()
@@ -147,6 +190,11 @@ public partial class GameplayController : Node2D
 
     public static void PlayerScored(uint points)
     {
+        if (currentGameplayState != GameplayState.Running)
+        {
+            return;
+        }
+
         if (points <= 0)
         {
             return;
@@ -165,6 +213,11 @@ public partial class GameplayController : Node2D
 
     public static void PlayerFouled(uint points)
     {
+        if (currentGameplayState != GameplayState.Running)
+        {
+            return;
+        }
+
         Lives--;
         Stats.PointsMissed += (ulong)(points * Difficulty);
 
@@ -181,6 +234,11 @@ public partial class GameplayController : Node2D
     void OnPauseButton()
     {
         globalController.ChangePauseState();
+    }
+
+    void OnExitButton()
+    {
+        globalController.ChangeGameState(GlobalController.GameState.MainMenu);
     }
 
     public override void _Input(InputEvent @event)
@@ -212,6 +270,5 @@ public partial class GameplayController : Node2D
 
 
 //TODO: Implement alternate/slider control scheme
-//TODO: Implement some kind of difficulty scaling
 //TODO: Fix out render order and put text above enemies
 //TODO: Also track the highest-latest difficulty
