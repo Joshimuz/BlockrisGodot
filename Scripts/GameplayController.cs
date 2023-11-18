@@ -42,6 +42,7 @@ public partial class GameplayController : Node2D
     public static ulong Score { get; private set; } = 0 ;
     public static sbyte Lives = 5;
     public static float Difficulty = 1;
+    static float HighestDifficulty;
     public static float LerpedDifficulty = 1;
     static uint EnemiesSinceLastIncident = 0;
 
@@ -94,13 +95,14 @@ public partial class GameplayController : Node2D
             HandlePlayerInput();
 
             Difficulty += (float)delta * 0.001f;
+            HighestDifficulty = Mathf.Max(HighestDifficulty, Difficulty);
             LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
 
             testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
                 + "\nDiff: " + Difficulty;
 
             Stats.LatestScore = Score;
-            Stats.LatestDifficulty = Difficulty;
+            Stats.LatestDifficulty = HighestDifficulty;
 
             HandleUI();
         }
@@ -271,4 +273,3 @@ public partial class GameplayController : Node2D
 
 //TODO: Implement alternate/slider control scheme
 //TODO: Fix out render order and put text above enemies
-//TODO: Also track the highest-latest difficulty

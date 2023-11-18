@@ -37,6 +37,4 @@ public partial class PauseMenu : Node2D
             globalController.ChangePauseState();
         }
     }
-
-    //TODO: Add Options Menu to Pause Screen
 }
