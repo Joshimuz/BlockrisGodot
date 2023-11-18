@@ -62,7 +62,7 @@ public partial class GameplayController : Node2D
 	{
         globalController = GetNode<GlobalController>("/root/GlobalController");
 
-        Score = 500000;
+        Score = 0;
         Lives = 5;
         Difficulty = 1f;
         LerpedDifficulty = 1;
