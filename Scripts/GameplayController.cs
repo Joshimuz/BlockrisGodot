@@ -30,8 +30,7 @@ public partial class GameplayController : Node2D
 
     [Export] Label ScoreLabel;
 
-    static Sprite2D[] hearts = new Sprite2D[5];
-    static Sprite2D heartPlus;
+    static Sprite2D[] hearts = new Sprite2D[6];
 
     TextureProgressBar boostBar;
 
@@ -76,14 +75,13 @@ public partial class GameplayController : Node2D
         hearts[2] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart3");
         hearts[3] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart4");
         hearts[4] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart5");
-        heartPlus = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart+");
-
+        hearts[5] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart+");
         // Setting the Hearts UI to default 5 hearts state
         foreach (Sprite2D heart in hearts)
         {
             heart.Visible = true;
         }
-        heartPlus.Visible = false;
+        hearts[5].Visible = false;
 
         GetNode<TouchScreenButton>("GameplayUI/TouchScreenButton").Pressed += OnPauseButton;
         GetNode<TouchScreenButton>("GameOverScreen/TouchScreenButton").Pressed += OnExitButton;
@@ -263,21 +261,19 @@ public partial class GameplayController : Node2D
             {
                 heart.Modulate = new Color(1f, 1f, 1f, 1f);
             }
-            heartPlus.Modulate = new Color(1f, 1f, 1f, 1f);
 
             livesChanged = false;
         }
-        else if (heartPlus.Modulate.A > 0.05f)
+        else if (hearts[0].Modulate.A > 0.05f)
         {
-            float alpha = Mathf.Lerp(heartPlus.Modulate.A, 0f, delta * 2f);
+            float alpha = Mathf.Lerp(hearts[0].Modulate.A, 0f, delta * 2f);
 
             foreach (Sprite2D heart in hearts)
             {
                 heart.Modulate = new Color(1f, 1f, 1f, alpha);
             }
-            heartPlus.Modulate = new Color(1f, 1f, 1f, alpha);
         }
-        else if (heartPlus.Modulate.A <= 0.1f)
+        else if (hearts[0].Modulate.A <= 0.1f)
         {
             if (Lives == 1)
             {
@@ -285,7 +281,6 @@ public partial class GameplayController : Node2D
                 {
                     heart.Modulate = new Color(1f, 1f, 1f, 1f);
                 }
-                heartPlus.Modulate = new Color(1f, 1f, 1f, 1f);
             }
             else
             {
@@ -293,7 +288,6 @@ public partial class GameplayController : Node2D
                 {
                     heart.Modulate = new Color(1f, 1f, 1f, 0f);
                 }
-                heartPlus.Modulate = new Color(1f, 1f, 1f, 0f);
             }
         }
         #endregion
@@ -362,21 +356,11 @@ public partial class GameplayController : Node2D
 
     static void ChangeLives(sbyte lives)
     {
-        if (lives > Lives && lives < 5)
+        if (lives > Lives && lives <= 6)
         {
             hearts[lives - 1].Visible = true;
         }
-        else if (lives > 5 && Lives <= 5)
-        {
-            heartPlus.Visible = true;
-            hearts[4].Visible = false;
-        }
-        else if (lives < Lives && Lives == 6)
-        {
-            heartPlus.Visible = false;
-            hearts[4].Visible = true;
-        }
-        else 
+        else if (Lives > lives && Lives <= 6 && lives >= 0)
         {
             hearts[lives].Visible = false;
         }
