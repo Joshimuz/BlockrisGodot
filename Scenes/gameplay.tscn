@@ -60,7 +60,7 @@ metadata/_edit_lock_ = true
 [node name="Hearts" type="Node2D" parent="GameplayUI"]
 position = Vector2(346, 1740)
 
-[node name="BadHeart" type="Sprite2D" parent="GameplayUI/Hearts"]
+[node name="BadHeart1" type="Sprite2D" parent="GameplayUI/Hearts"]
 position = Vector2(64, 0)
 texture = ExtResource("6_xr8u7")
 metadata/_edit_lock_ = true
@@ -85,8 +85,7 @@ position = Vector2(320, 0)
 texture = ExtResource("6_xr8u7")
 metadata/_edit_lock_ = true
 
-[node name="BadHeart+" type="Sprite2D" parent="GameplayUI/Hearts"]
-visible = false
+[node name="BadHeart6" type="Sprite2D" parent="GameplayUI/Hearts"]
 position = Vector2(320, 0)
 texture = ExtResource("7_xt006")
 metadata/_edit_lock_ = true

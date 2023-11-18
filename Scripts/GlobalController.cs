@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class GlobalController : Node
 {
@@ -16,10 +17,37 @@ public partial class GlobalController : Node
 
     bool previousPaused;
 
+    public static float AspectRatioNumber;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        CalcAspectRatioNumber();
+
         ProcessMode = Node.ProcessModeEnum.Always;
+    }
+
+    public static void CalcAspectRatioNumber()
+    {
+        AspectRatioNumber = (float)DisplayServer.WindowGetSize().Y
+            / (float)DisplayServer.WindowGetSize().X;
+
+        GD.Print(AspectRatioNumber.ToString());
+    }
+
+    /// <summary>
+    /// Calculate the actual Y position needed to Anchor to the Botton of the screen
+    /// </summary>
+    /// <param name="OGValue"></param>
+    /// <returns></returns>
+    public static float AnchorB(float OGValue)
+    {
+        if (AspectRatioNumber <= 1.7777778f)
+        {
+            return OGValue;
+        }
+
+        return (OGValue / 1.7777778f) * AspectRatioNumber;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

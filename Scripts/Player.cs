@@ -48,7 +48,8 @@ public partial class Player : Sprite2D
 
 		MovementSpeed = MovementSpeedScale * (Transform.Scale.X * 1.1f);
 
-		Position = new Vector2(Position.X, 1660 - (Transform.Scale.Y / 2));
+		Position = new Vector2(Position.X, GlobalController.AnchorB(1660) 
+			- (Transform.Scale.Y / 2));
 
         HandleMovement(delta);
 

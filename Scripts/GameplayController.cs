@@ -69,19 +69,21 @@ public partial class GameplayController : Node2D
         EnemiesSinceLastIncident = 0;
 
         SmoothScore = 0;
+        ScoreLabel.Position = new Vector2(ScoreLabel.Position.X, AnchorB(ScoreLabel.Position.Y));
 
-        hearts[0] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart");
-        hearts[1] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart2");
-        hearts[2] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart3");
-        hearts[3] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart4");
-        hearts[4] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart5");
-        hearts[5] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart+");
         // Setting the Hearts UI to default 5 hearts state
-        foreach (Sprite2D heart in hearts)
+        for (byte i = 0; i < 6; i++)
         {
-            heart.Visible = true;
+            hearts[i] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart" + (i + 1));
+
+            hearts[i].Visible = true;
         }
         hearts[5].Visible = false;
+
+        Node2D heartsParent = GetNode<Node2D>("GameplayUI/Hearts");
+
+        heartsParent.Position = new Vector2(heartsParent.Position.X, 
+            AnchorB(heartsParent.Position.Y));
 
         GetNode<TouchScreenButton>("GameplayUI/TouchScreenButton").Pressed += OnPauseButton;
         GetNode<TouchScreenButton>("GameOverScreen/TouchScreenButton").Pressed += OnExitButton;
@@ -95,6 +97,7 @@ public partial class GameplayController : Node2D
 
         boostBar = GetNode<TextureProgressBar>("GameplayUI/BoostBar");
         boostBar.TintProgress = new Color(1f, 0f, 0f, 0f);
+        boostBar.Position = new Vector2(boostBar.Position.X, AnchorB(boostBar.Position.Y));
 
         gameOverScreen = GetNode<Node2D>("GameOverScreen");
         gameplayUI = GetNode<Node2D>("GameplayUI");

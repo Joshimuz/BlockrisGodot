@@ -16,11 +16,6 @@ public partial class OptionsMenu : Node2D
         SetAAModeText();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-    }
-
 	public void ToggleWindowedMode()
 	{
         if (DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed)
@@ -45,6 +40,9 @@ public partial class OptionsMenu : Node2D
             GetNode<RichTextLabel>("WindowMode/TextSizer/Text").Text = 
                 DisplayServer.WindowGetMode().ToString();
         }
+
+        // Get Global Controller to recalculate the aspect ratio coz it could've changed
+        GlobalController.CalcAspectRatioNumber();
     }
 
     public void ToggleAAMode()
