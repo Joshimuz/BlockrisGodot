@@ -62,7 +62,7 @@ public partial class GameplayController : Node2D
 	{
         globalController = GetNode<GlobalController>("/root/GlobalController");
 
-        Score = 0;
+        Score = 500000;
         Lives = 5;
         Difficulty = 1f;
         LerpedDifficulty = 1;
@@ -132,14 +132,11 @@ public partial class GameplayController : Node2D
         // Handling of score rendering
         if (SmoothScore < Score)
         {
-            if (Score - SmoothScore > 100)
-            {
-                SmoothScore += 11;
-            }
-            else
-            {
-                SmoothScore++;
-            }
+            ulong DeltaScore = (Score - SmoothScore);
+            int order = (int)MathF.Floor(MathF.Log10(DeltaScore));
+            ulong increment = (ulong)MathF.Floor((1f / 9) * MathF.Pow(10, order));
+            if (increment < 1) increment = 1;
+            SmoothScore += increment;
         }
     }
 
