@@ -1,7 +1,5 @@
 Godot C# Game Development, working on Blockris my "Passive Shmup"
 
-Screenshake when losing a life
-
 Keyboard controlls
 	Figure out how to determin what platform game is running on
 
@@ -46,6 +44,7 @@ Possible Enemy Types
 	Transforming Enemy (becomes another random enemy)
 	Status Changing Enemy (want to hit, but does something like reverse controls?)
 	Boost giving Enemy/Powerup/Life giving enemy (opional to hit)
+	Size increasing Enemy/Powerup
 	"Wire" Enemy (creates a wire between it and another that kills you if hit, opional to hit block?)
 	"Mirror" Enemy (copies your movement, but if hit's another enemy gets killed)
 	Planet and Moon Enemy (spikey enemy in center with a normal enemy rotating around it)

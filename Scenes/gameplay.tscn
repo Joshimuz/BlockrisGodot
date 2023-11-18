@@ -1,20 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bruughkpvj56x"]
+[gd_scene load_steps=8 format=3 uid="uid://bruughkpvj56x"]
 
 [ext_resource type="Script" path="res://Scripts/GameplayController.cs" id="1_nt1ga"]
 [ext_resource type="PackedScene" uid="uid://ctkjynq0wcvl5" path="res://PackedNodes/spawner.tscn" id="2_ewlri"]
 [ext_resource type="PackedScene" uid="uid://hepbe1pm68wh" path="res://PackedNodes/player.tscn" id="2_yt8s7"]
 [ext_resource type="Texture2D" uid="uid://cpgap0ud2ur2r" path="res://Textures/Red Pixel.png" id="4_3furi"]
 [ext_resource type="Texture2D" uid="uid://dx5j8loedptwd" path="res://Textures/White Pixel.png" id="5_sfyvv"]
+[ext_resource type="Texture2D" uid="uid://cqr6wy4pi6mng" path="res://Textures/bad heart.png" id="6_xr8u7"]
+[ext_resource type="Texture2D" uid="uid://oruyl7kns004" path="res://Textures/bad heart+.png" id="7_xt006"]
 
-[node name="GameController" type="Node2D"]
+[node name="GameController" type="Node2D" node_paths=PackedStringArray("ScoreLabel")]
 process_mode = 1
 script = ExtResource("1_nt1ga")
 packedSpawner = ExtResource("2_ewlri")
 packedPlayer = ExtResource("2_yt8s7")
+ScoreLabel = NodePath("GameplayUI/ScoreLabel")
 metadata/_edit_lock_ = true
 
 [node name="GameplayUI" type="Node2D" parent="."]
-visible = false
+metadata/_edit_lock_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GameplayUI"]
 offset_right = 1068.0
@@ -42,9 +45,56 @@ value = 0.5
 fill_mode = 6
 nine_patch_stretch = true
 texture_progress = ExtResource("5_sfyvv")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="ScoreLabel" type="Label" parent="GameplayUI"]
+offset_top = 1821.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+theme_override_font_sizes/font_size = 50
+text = "rtfyhyterdyhterdyghredgred"
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Hearts" type="Node2D" parent="GameplayUI"]
+position = Vector2(346, 1740)
+
+[node name="BadHeart" type="Sprite2D" parent="GameplayUI/Hearts"]
+position = Vector2(64, 0)
+texture = ExtResource("6_xr8u7")
+metadata/_edit_lock_ = true
+
+[node name="BadHeart2" type="Sprite2D" parent="GameplayUI/Hearts"]
+position = Vector2(128, 0)
+texture = ExtResource("6_xr8u7")
+metadata/_edit_lock_ = true
+
+[node name="BadHeart3" type="Sprite2D" parent="GameplayUI/Hearts"]
+position = Vector2(192, 0)
+texture = ExtResource("6_xr8u7")
+metadata/_edit_lock_ = true
+
+[node name="BadHeart4" type="Sprite2D" parent="GameplayUI/Hearts"]
+position = Vector2(256, 0)
+texture = ExtResource("6_xr8u7")
+metadata/_edit_lock_ = true
+
+[node name="BadHeart5" type="Sprite2D" parent="GameplayUI/Hearts"]
+position = Vector2(320, 0)
+texture = ExtResource("6_xr8u7")
+metadata/_edit_lock_ = true
+
+[node name="BadHeart+" type="Sprite2D" parent="GameplayUI/Hearts"]
+visible = false
+position = Vector2(320, 0)
+texture = ExtResource("7_xt006")
+metadata/_edit_lock_ = true
 
 [node name="GameOverScreen" type="Node2D" parent="."]
+visible = false
 z_index = 2
+metadata/_edit_lock_ = true
 
 [node name="YouDiedXD" type="RichTextLabel" parent="GameOverScreen"]
 offset_left = 159.0
@@ -53,8 +103,11 @@ offset_right = 1236.0
 offset_bottom = 904.0
 theme_override_font_sizes/normal_font_size = 100
 text = "YOU DIED XD"
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="GameOverScreen"]
 position = Vector2(367, 1484)
 scale = Vector2(250, 250)
 texture_normal = ExtResource("4_3furi")
+metadata/_edit_lock_ = true

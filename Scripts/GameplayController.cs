@@ -28,6 +28,11 @@ public partial class GameplayController : Node2D
 
     [Export] public static RichTextLabel testText;
 
+    [Export] Label ScoreLabel;
+
+    static Sprite2D[] hearts = new Sprite2D[5];
+    static Sprite2D heartPlus;
+
     TextureProgressBar boostBar;
 
     Node2D gameOverScreen;
@@ -42,12 +47,16 @@ public partial class GameplayController : Node2D
 
     Dictionary<int, Vector2> touchDic = new Dictionary<int, Vector2>();
 
-    public static ulong Score { get; private set; } = 0 ;
-    public static sbyte Lives = 5;
-    public static float Difficulty = 1;
+    public static ulong Score { get; private set; }
+    public static sbyte Lives { get; private set; }
+    public static float Difficulty;
     static float HighestDifficulty;
-    public static float LerpedDifficulty = 1;
-    static uint EnemiesSinceLastIncident = 0;
+    public static float LerpedDifficulty;
+    static uint EnemiesSinceLastIncident;
+
+    static ulong SmoothScore;
+
+    static bool livesChanged = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -59,6 +68,22 @@ public partial class GameplayController : Node2D
         Difficulty = 1f;
         LerpedDifficulty = 1;
         EnemiesSinceLastIncident = 0;
+
+        SmoothScore = 0;
+
+        hearts[0] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart");
+        hearts[1] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart2");
+        hearts[2] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart3");
+        hearts[3] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart4");
+        hearts[4] = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart5");
+        heartPlus = GetNode<Sprite2D>("GameplayUI/Hearts/BadHeart+");
+
+        // Setting the Hearts UI to default 5 hearts state
+        foreach (Sprite2D heart in hearts)
+        {
+            heart.Visible = true;
+        }
+        heartPlus.Visible = false;
 
         GetNode<TouchScreenButton>("GameplayUI/TouchScreenButton").Pressed += OnPauseButton;
         GetNode<TouchScreenButton>("GameOverScreen/TouchScreenButton").Pressed += OnExitButton;
@@ -102,6 +127,19 @@ public partial class GameplayController : Node2D
                 Engine.TimeScale = Mathf.Lerp(Engine.TimeScale, 1.0f, delta * 3.5f);
             }
         }
+
+        // Handling of score rendering
+        if (SmoothScore < Score)
+        {
+            if (Score - SmoothScore > 100)
+            {
+                SmoothScore += 11;
+            }
+            else
+            {
+                SmoothScore++;
+            }
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,6 +150,7 @@ public partial class GameplayController : Node2D
             if (Lives <= 0)
             {
                 ChangeGamplayState(GameplayState.End);
+                return;
             }
 
             HandlePlayerInput();
@@ -126,7 +165,7 @@ public partial class GameplayController : Node2D
             Stats.LatestScore = Score;
             Stats.LatestDifficulty = HighestDifficulty;
 
-            HandleUI();
+            HandleUI((float)delta);
         }
     }
 
@@ -197,8 +236,9 @@ public partial class GameplayController : Node2D
         }
     }
 
-    void HandleUI()
+    void HandleUI(float delta)
     {
+        #region Boost Bar
         if (player.currentBoostAmount == player.MaximumBoost)
         {
             boostBar.TintProgress = new Color(0f, 1f, 0f, boostBar.TintProgress.A - 0.01f);
@@ -210,6 +250,53 @@ public partial class GameplayController : Node2D
 
         boostBar.Value = player.currentBoostAmount;
         //boostBar.Value = Mathf.Lerp(boostBar.Value, player.currentBoostAmount, 0.1f);
+        #endregion
+
+        #region Score Text
+        ScoreLabel.Text = SmoothScore.ToString();
+        #endregion
+
+        #region Hearts
+        if (livesChanged)
+        {
+            foreach (Sprite2D heart in hearts)
+            {
+                heart.Modulate = new Color(1f, 1f, 1f, 1f);
+            }
+            heartPlus.Modulate = new Color(1f, 1f, 1f, 1f);
+
+            livesChanged = false;
+        }
+        else if (heartPlus.Modulate.A > 0.05f)
+        {
+            float alpha = Mathf.Lerp(heartPlus.Modulate.A, 0f, delta * 2f);
+
+            foreach (Sprite2D heart in hearts)
+            {
+                heart.Modulate = new Color(1f, 1f, 1f, alpha);
+            }
+            heartPlus.Modulate = new Color(1f, 1f, 1f, alpha);
+        }
+        else if (heartPlus.Modulate.A <= 0.1f)
+        {
+            if (Lives == 1)
+            {
+                foreach (Sprite2D heart in hearts)
+                {
+                    heart.Modulate = new Color(1f, 1f, 1f, 1f);
+                }
+                heartPlus.Modulate = new Color(1f, 1f, 1f, 1f);
+            }
+            else
+            {
+                foreach (Sprite2D heart in hearts)
+                {
+                    heart.Modulate = new Color(1f, 1f, 1f, 0f);
+                }
+                heartPlus.Modulate = new Color(1f, 1f, 1f, 0f);
+            }
+        }
+        #endregion
     }
 
     public static void PlayerScored(uint points)
@@ -242,13 +329,8 @@ public partial class GameplayController : Node2D
             return;
         }
 
-        Lives--;
+        RemoveLife();
         Stats.PointsMissed += (ulong)(points * Difficulty);
-
-        if (Lives <= 0)
-        {
-            return;
-        }
 
         Difficulty = Math.Max(Difficulty - 0.1f, 0.5f);
 
@@ -266,6 +348,41 @@ public partial class GameplayController : Node2D
     void OnExitButton()
     {
         globalController.ChangeGameState(GlobalController.GameState.MainMenu);
+    }
+
+    public static void AddLife()
+    {
+        ChangeLives((sbyte)(Lives + 1));
+    }
+
+    public static void RemoveLife()
+    {
+        ChangeLives((sbyte)(Lives - 1));
+    }
+
+    static void ChangeLives(sbyte lives)
+    {
+        if (lives > Lives && lives < 5)
+        {
+            hearts[lives - 1].Visible = true;
+        }
+        else if (lives > 5 && Lives <= 5)
+        {
+            heartPlus.Visible = true;
+            hearts[4].Visible = false;
+        }
+        else if (lives < Lives && Lives == 6)
+        {
+            heartPlus.Visible = false;
+            hearts[4].Visible = true;
+        }
+        else 
+        {
+            hearts[lives].Visible = false;
+        }
+
+        livesChanged = true;
+        Lives = lives;
     }
 
     public override void _Input(InputEvent @event)

@@ -23,7 +23,7 @@ public partial class OneUpEnemy : Enemy
 
     public override void OnPlayerHit()
     {
-        GameplayController.Lives++;
+        GameplayController.AddLife();
 
         Stats.BlocksHit++;
         QueueFree();
