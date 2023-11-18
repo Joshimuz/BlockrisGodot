@@ -10,6 +10,8 @@ public partial class GameplayController : Node2D
 
     public static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
+    public static RandomNumberGenerator UnseededRNG = new RandomNumberGenerator();
+
     public enum GameplayState
     {
         Intro, //TODO: Add Gameplay Intro stuff
@@ -83,23 +85,30 @@ public partial class GameplayController : Node2D
         ChangeGamplayState(GameplayState.Running);
     }
 
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Engine.TimeScale != 1.0)
+        {
+            Position = new Vector2((0 + UnseededRNG.RandfRange(-1, 1)) / (float)Engine.TimeScale,
+                0 + UnseededRNG.RandfRange(-1, 1) / (float)Engine.TimeScale);
+
+            if (Engine.TimeScale >= 0.95f)
+            {
+                Engine.TimeScale = 1.0;
+                Position = Vector2.Zero;
+            }
+            else
+            {
+                Engine.TimeScale = Mathf.Lerp(Engine.TimeScale, 1.0f, delta * 3.5f);
+            }
+        }
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
         if (currentGameplayState == GameplayState.Running)
         {
-            if (Engine.TimeScale != 1.0)
-            {
-                if (Engine.TimeScale >= 0.95f)
-                {
-                    Engine.TimeScale = 1.0;
-                }
-                else
-                {
-                    Engine.TimeScale = Mathf.Lerp(Engine.TimeScale, 1.0f, delta * 3f);
-                }
-            }
-
             if (Lives <= 0)
             {
                 ChangeGamplayState(GameplayState.End);

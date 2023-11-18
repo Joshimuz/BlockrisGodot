@@ -1,6 +1,5 @@
 Godot C# Game Development, working on Blockris my "Passive Shmup"
 
-Slowdown effect when losing a life
 Screenshake when losing a life
 
 Keyboard controlls
