@@ -1,6 +1,10 @@
 Godot C# Game Development, working on Blockris my "Passive Shmup"
 
 Slowdown effect when losing a life
+Screenshake when losing a life
+
+Keyboard controlls
+	Figure out how to determin what platform game is running on
 
 Hearts for lives at bottom of screen
 

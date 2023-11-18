@@ -59,7 +59,9 @@ public partial class GlobalController : Node
     public void ChangePauseState(bool pause)
     {
         if (previousPaused != GetTree().Paused 
-            || currentGameState != GameState.Gameplay)
+            || currentGameState != GameState.Gameplay
+            || GameplayController.currentGameplayState 
+            != GameplayController.GameplayState.Running)
         {
             return;
         }

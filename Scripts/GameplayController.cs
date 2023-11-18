@@ -10,14 +10,15 @@ public partial class GameplayController : Node2D
 
     public static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
-    enum GameplayState
+    public enum GameplayState
     {
         Intro, //TODO: Add Gameplay Intro stuff
         Running,
         End //TODO: Add Gameplay Outro/End/Deathscreen/Highscore stuff
     }
 
-    static GameplayState currentGameplayState = GameplayState.Intro;
+    public static GameplayState currentGameplayState 
+        { get; private set; } = GameplayState.Intro;
 
     [Export] PackedScene packedSpawner;
 
