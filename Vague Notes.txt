@@ -1,3 +1,9 @@
+Godot C# Game Development, working on Blockris my "Passive Shmup"
+
+Slowdown effect when losing a life
+
+Hearts for lives at bottom of screen
+
 Visible areas for movement input
 	Have fake transparent "buttons" to inidcate where to press to move
 	Boost Left, Left, Right, Boost Right
