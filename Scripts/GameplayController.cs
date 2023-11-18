@@ -88,6 +88,18 @@ public partial class GameplayController : Node2D
 	{
         if (currentGameplayState == GameplayState.Running)
         {
+            if (Engine.TimeScale != 1.0)
+            {
+                if (Engine.TimeScale >= 0.95f)
+                {
+                    Engine.TimeScale = 1.0;
+                }
+                else
+                {
+                    Engine.TimeScale = Mathf.Lerp(Engine.TimeScale, 1.0f, delta * 3f);
+                }
+            }
+
             if (Lives <= 0)
             {
                 ChangeGamplayState(GameplayState.End);
@@ -100,7 +112,7 @@ public partial class GameplayController : Node2D
             LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
 
             testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
-                + "\nDiff: " + Difficulty;
+                + "\nDiff: " + Difficulty + "\nTimeScale: " + Engine.TimeScale;
 
             Stats.LatestScore = Score;
             Stats.LatestDifficulty = HighestDifficulty;
@@ -232,6 +244,9 @@ public partial class GameplayController : Node2D
         Difficulty = Math.Max(Difficulty - 0.1f, 0.5f);
 
         EnemiesSinceLastIncident = 0;
+
+        // Trigger Slowmo
+        Engine.TimeScale = 0.1f;
     }
 
     void OnPauseButton()
