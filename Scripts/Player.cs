@@ -52,8 +52,6 @@ public partial class Player : Sprite2D
 			- (Transform.Scale.Y / 2));
 
         HandleMovement(delta);
-
-        GameplayController.testText.Text += "\nBoost: " + currentBoostAmount;
     }
 
 	void HandleMovement(double delta)

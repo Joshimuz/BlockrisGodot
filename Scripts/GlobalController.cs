@@ -19,6 +19,8 @@ public partial class GlobalController : Node
 
     public static float AspectRatioNumber;
 
+    static public bool DebugMode { get; private set; } = false;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -32,7 +34,7 @@ public partial class GlobalController : Node
         AspectRatioNumber = (float)DisplayServer.WindowGetSize().Y
             / (float)DisplayServer.WindowGetSize().X;
 
-        GD.Print(AspectRatioNumber.ToString());
+        //GD.Print(AspectRatioNumber.ToString());
     }
 
     /// <summary>

@@ -94,6 +94,7 @@ public partial class GameplayController : Node2D
         //TODO: Record the RNG seed and store it somewhere for replays
 
         testText = GetNode<RichTextLabel>("GameplayUI/RichTextLabel");
+        testText.Text = string.Empty;
 
         boostBar = GetNode<TextureProgressBar>("GameplayUI/BoostBar");
         boostBar.TintProgress = new Color(1f, 0f, 0f, 0f);
@@ -156,10 +157,7 @@ public partial class GameplayController : Node2D
             Difficulty += (float)delta * 0.001f;
             HighestDifficulty = Mathf.Max(HighestDifficulty, Difficulty);
             LerpedDifficulty = Mathf.Lerp(LerpedDifficulty, Difficulty, (float)delta);
-
-            testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
-                + "\nDiff: " + Difficulty + "\nTimeScale: " + Engine.TimeScale;
-
+            
             Stats.LatestScore = Score;
             Stats.LatestDifficulty = HighestDifficulty;
 
@@ -291,6 +289,13 @@ public partial class GameplayController : Node2D
             }
         }
         #endregion
+
+        if (DebugMode)
+        {
+            testText.Text = "Score: " + Score.ToString() + "\nLives: " + Lives.ToString()
+                            + "\nDiff: " + Difficulty + "\nTimeScale: " + Engine.TimeScale
+                            + "\nBoost: " + player.currentBoostAmount;
+        }
     }
 
     public static void PlayerScored(uint points)
