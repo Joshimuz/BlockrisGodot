@@ -58,7 +58,7 @@ public partial class ShootingEnemy : Enemy
                 .Instantiate<Enemy>();
 
             newEnemy.GlobalPosition = GlobalPosition;
-            newEnemy.MovementSpeedScale = MovementSpeedScale * 8f;
+            newEnemy.MovementSpeedScale = MovementSpeedScale * 12f;
             newEnemy.defaultScale = defaultScale / 4f;
             newEnemy.Points = 0;
 

@@ -5,11 +5,11 @@ using static Godot.TextServer;
 public abstract partial class Enemy : Sprite2D
 {
     /// <summary>
-    /// Movement Speed in pixels per second, scaled by the size of the player * MovementSpeedScale
+    /// Movement Speed in pixels per second, scaled by the size of the enemy * MovementSpeedScale
     /// </summary>
     protected float MovementSpeed;
     /// <summary>
-    /// The amount to times the scale of the player by, for MovementSpeed, use this to change movement speed
+    /// The amount to times the scale of the enemy by, for MovementSpeed, use this to change movement speed
     /// </summary>
     //protected float MovementSpeedScale = 6.25f;
     public float MovementSpeedScale = 3.125f;
