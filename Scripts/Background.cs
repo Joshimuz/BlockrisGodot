@@ -36,7 +36,7 @@ public partial class Background : Sprite2D
 
             star.Scale *= RNG.RandfRange(0, 5);
 
-            star.GlobalPosition = new Vector2(RNG.RandfRange(0 + (i * 10), 580 + (i * 10)), RNG.RandfRange(-20, 1920));
+            star.GlobalPosition = new Vector2(RNG.RandfRange(0 + (i * 10), 580 + (i * 10)), RNG.RandfRange(-20, DisplayServer.WindowGetSize().Y));
 
             if (RNG.Randf() > 0.5f)
             {
@@ -79,7 +79,7 @@ public partial class Background : Sprite2D
                 }
             }
 
-            if (star.GlobalPosition.Y - star.GlobalScale.Y > 1920)
+            if (star.GlobalPosition.Y - star.GlobalScale.Y > DisplayServer.WindowGetSize().Y)
             {
                 star.GlobalPosition = new Vector2(RNG.RandfRange(0, 1080), RNG.RandfRange(-20 + star.GlobalScale.Y, 0 + star.GlobalScale.Y));
             }
